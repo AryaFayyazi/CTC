@@ -1,0 +1,18 @@
+\begin{table}[t]
+\centering
+\small
+\caption{Multi-agent coordination accuracy on MMLU under overconfident prompt-injection attack ($\alpha=0.1$, $N=5$ agents). Mean $\pm$ 95\% CI over 20 seeds. Significance vs.\ CTC: $^*p<.05$, $^{**}p<.01$, $^{***}p<.001$ (Wilcoxon).}}
+\label{tab:mmlu_main}
+\begin{tabular}{lrrrr}
+\toprule
+Method & $k=0$ & $k=1$ & $k=2$ & $k=3$ \\
+\midrule
+Vanilla & 0.675 {\small$\pm$0.003}$^{**}$ & 0.538 {\small$\pm$0.004}$^{***}$ & 0.403 {\small$\pm$0.005}$^{***}$ & 0.269 {\small$\pm$0.004}$^{***}$ \\
+Avg-Ensemble & 0.679 {\small$\pm$0.002} & 0.677 {\small$\pm$0.002} & 0.657 {\small$\pm$0.003}$^{***}$ & 0.118 {\small$\pm$0.002}$^{***}$ \\
+Majority Vote & 0.679 {\small$\pm$0.002} & 0.677 {\small$\pm$0.003} & 0.661 {\small$\pm$0.003}$^{***}$ & 0.065 {\small$\pm$0.002}$^{***}$ \\
+EntropyTrust & 0.676 {\small$\pm$0.002} & 0.658 {\small$\pm$0.003}$^{***}$ & 0.634 {\small$\pm$0.002}$^{***}$ & 0.610 {\small$\pm$0.002}$^{***}$ \\
+\textbf{CTC \textbf{(ours)}} & \textbf{0.675 {\small$\pm$0.002}} & \textbf{0.671 {\small$\pm$0.002}} & \textbf{0.665 {\small$\pm$0.002}} & \textbf{0.653 {\small$\pm$0.003}} \\
+\bottomrule
+\end{tabular}
+\end{table}
+

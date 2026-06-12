@@ -1,0 +1,18 @@
+\begin{table}[t]
+\centering
+\small
+\caption{Multi-agent coordination accuracy on ARC under overconfident prompt-injection attack ($\alpha=0.1$, $N=5$ agents). Mean $\pm$ 95\% CI over 20 seeds. Significance vs.\ CTC: $^*p<.05$, $^{**}p<.01$, $^{***}p<.001$ (Wilcoxon).}}
+\label{tab:arc_main}
+\begin{tabular}{lrrrr}
+\toprule
+Method & $k=0$ & $k=1$ & $k=2$ & $k=3$ \\
+\midrule
+Vanilla & 0.892 {\small$\pm$0.004} & 0.711 {\small$\pm$0.009} & 0.533 {\small$\pm$0.013} & 0.355 {\small$\pm$0.011} \\
+Avg-Ensemble & 0.888 {\small$\pm$0.005}$^{***}$ & 0.889 {\small$\pm$0.005} & 0.882 {\small$\pm$0.005} & 0.187 {\small$\pm$0.004}$^{***}$ \\
+Majority Vote & 0.886 {\small$\pm$0.005}$^{***}$ & 0.889 {\small$\pm$0.005} & 0.881 {\small$\pm$0.005} & 0.095 {\small$\pm$0.005}$^{***}$ \\
+EntropyTrust & 0.890 {\small$\pm$0.005}$^{**}$ & 0.884 {\small$\pm$0.005} & 0.875 {\small$\pm$0.005} & 0.865 {\small$\pm$0.005} \\
+\textbf{CTC \textbf{(ours)}} & \textbf{0.893 {\small$\pm$0.004}} & \textbf{0.713 {\small$\pm$0.022}} & \textbf{0.544 {\small$\pm$0.040}} & \textbf{0.377 {\small$\pm$0.057}} \\
+\bottomrule
+\end{tabular}
+\end{table}
+

@@ -1,0 +1,4 @@
+# Mark common binary types
+*.pdf binary
+*.png binary
+results/summary_results.json -text

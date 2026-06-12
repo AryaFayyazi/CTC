@@ -1,0 +1,102 @@
+\begin{table}[t]
+\centering
+\small
+\caption{Headline result: accuracy at $k=3$ corrupt agents out of $N=5$ ($\alpha=0.1$, overconfident attack). Mean $\pm$ 95\% CI over 20 seeds. \textbf{CTC-Hybrid (ours)} maintains accuracy across models and tasks while majority vote collapses. Significance vs.\ CTC-Hybrid: $^*p<.05$, $^{**}p<.01$, $^{***}p<.001$.}}
+\label{tab:crossmodel}
+\begin{tabular}{llrrrrr}
+\toprule
+Model & Task & Majority Vote & EntropyTrust & CTC-Global & CTC-Calibrated & CTC-Hybrid (ours) \\
+\midrule
+Qwen2.5-7B-Instruct & MMLU & 0.065{\small$\pm$0.002}$^{***}$ & 0.482{\small$\pm$0.003}$^{***}$ & 0.562{\small$\pm$0.004} & 0.569{\small$\pm$0.004} & \textbf{0.494{\small$\pm$0.002}} \\
+Qwen2.5-7B-Instruct & TRUTHFULQA & 0.084{\small$\pm$0.005}$^{***}$ & 0.547{\small$\pm$0.007}$^{***}$ & 0.569{\small$\pm$0.011} & 0.578{\small$\pm$0.011} & \textbf{0.555{\small$\pm$0.007}} \\
+Qwen2.5-7B-Instruct & ARC & 0.095{\small$\pm$0.005}$^{***}$ & 0.787{\small$\pm$0.007} & 0.169{\small$\pm$0.005}$^{***}$ & 0.094{\small$\pm$0.005}$^{***}$ & \textbf{0.787{\small$\pm$0.007}} \\
+\midrule
+Qwen3-30B-A3B-Instruct-2507 & MMLU & 0.098{\small$\pm$0.002}$^{***}$ & 0.563{\small$\pm$0.003} & 0.158{\small$\pm$0.003}$^{***}$ & 0.082{\small$\pm$0.002}$^{***}$ & \textbf{0.560{\small$\pm$0.002}} \\
+Qwen3-30B-A3B-Instruct-2507 & TRUTHFULQA & 0.108{\small$\pm$0.007}$^{***}$ & 0.605{\small$\pm$0.008}$^{***}$ & 0.561{\small$\pm$0.107} & 0.546{\small$\pm$0.122} & \textbf{0.614{\small$\pm$0.009}} \\
+Qwen3-30B-A3B-Instruct-2507 & ARC & 0.150{\small$\pm$0.009}$^{***}$ & 0.880{\small$\pm$0.005} & 0.284{\small$\pm$0.007}$^{***}$ & 0.157{\small$\pm$0.009}$^{***}$ & \textbf{0.880{\small$\pm$0.005}} \\
+\midrule
+Phi-3.5-mini-instruct & MMLU & 0.042{\small$\pm$0.001}$^{***}$ & 0.489{\small$\pm$0.003}$^{***}$ & 0.506{\small$\pm$0.005} & 0.514{\small$\pm$0.005} & \textbf{0.496{\small$\pm$0.003}} \\
+Phi-3.5-mini-instruct & TRUTHFULQA & 0.071{\small$\pm$0.004}$^{***}$ & 0.501{\small$\pm$0.006}$^{***}$ & 0.453{\small$\pm$0.011}$^{***}$ & 0.457{\small$\pm$0.010}$^{***}$ & \textbf{0.505{\small$\pm$0.006}} \\
+Phi-3.5-mini-instruct & ARC & 0.090{\small$\pm$0.005}$^{***}$ & 0.709{\small$\pm$0.006} & 0.171{\small$\pm$0.005}$^{***}$ & 0.087{\small$\pm$0.005}$^{***}$ & \textbf{0.709{\small$\pm$0.006}} \\
+\midrule
+Mistral-7B-Instruct-v0.3 & MMLU & 0.034{\small$\pm$0.001}$^{***}$ & 0.289{\small$\pm$0.002}$^{***}$ & 0.371{\small$\pm$0.002} & 0.377{\small$\pm$0.002} & \textbf{0.300{\small$\pm$0.003}} \\
+Mistral-7B-Instruct-v0.3 & TRUTHFULQA & 0.059{\small$\pm$0.005}$^{***}$ & 0.436{\small$\pm$0.008}$^{***}$ & 0.361{\small$\pm$0.017}$^{***}$ & 0.371{\small$\pm$0.017}$^{***}$ & \textbf{0.445{\small$\pm$0.008}} \\
+Mistral-7B-Instruct-v0.3 & ARC & 0.038{\small$\pm$0.003}$^{***}$ & 0.485{\small$\pm$0.008}$^{***}$ & 0.534{\small$\pm$0.011} & 0.543{\small$\pm$0.010} & \textbf{0.510{\small$\pm$0.008}} \\
+\bottomrule
+\end{tabular}
+\end{table}
+\begin{table}[t]
+\centering
+\small
+\caption{Coordination accuracy on MMLU with Mistral-7B-Instruct-v0.3 under overconfident attack ($\alpha=0.1$, $N=5$). Mean $\pm$ 95\% CI over 20 seeds. Significance vs.\ CTC-Global: $^*p<.05$, $^{**}p<.01$, $^{***}p<.001$ (Wilcoxon).}}
+\label{tab:mmlu_mistral_7b_instruct_v0_3}
+\begin{tabular}{lrrrr}
+\toprule
+Method & $k=0$ & $k=1$ & $k=2$ & $k=3$ \\
+\midrule
+Vanilla (single) & 0.518{\small$\pm$0.003} & 0.413{\small$\pm$0.003} & 0.309{\small$\pm$0.003}$^{***}$ & 0.206{\small$\pm$0.003}$^{***}$ \\
+Avg-Ensemble & 0.518{\small$\pm$0.002} & 0.519{\small$\pm$0.002} & 0.486{\small$\pm$0.002} & 0.041{\small$\pm$0.001}$^{***}$ \\
+Majority Vote & 0.520{\small$\pm$0.002} & 0.519{\small$\pm$0.002} & 0.499{\small$\pm$0.002} & 0.034{\small$\pm$0.001}$^{***}$ \\
+EntropyTrust & 0.518{\small$\pm$0.002}$^{**}$ & 0.338{\small$\pm$0.002}$^{***}$ & 0.312{\small$\pm$0.003}$^{***}$ & 0.289{\small$\pm$0.002}$^{***}$ \\
+CTC-Global & 0.519{\small$\pm$0.002} & 0.519{\small$\pm$0.002} & 0.496{\small$\pm$0.003} & 0.371{\small$\pm$0.002} \\
+CTC-Focal & 0.516{\small$\pm$0.003}$^{**}$ & 0.506{\small$\pm$0.002} & 0.491{\small$\pm$0.002} & 0.471{\small$\pm$0.002} \\
+CTC-Agreement & 0.519{\small$\pm$0.002} & 0.519{\small$\pm$0.002} & 0.495{\small$\pm$0.003} & 0.336{\small$\pm$0.003} \\
+CTC-Calibrated & 0.519{\small$\pm$0.002} & 0.519{\small$\pm$0.002} & 0.515{\small$\pm$0.002} & 0.377{\small$\pm$0.002} \\
+\textbf{CTC-Hybrid (ours)} & \textbf{0.518{\small$\pm$0.002}} & \textbf{0.351{\small$\pm$0.002}} & \textbf{0.323{\small$\pm$0.002}} & \textbf{0.300{\small$\pm$0.003}} \\
+\midrule
+CTC Coverage & 0.897 & 0.897 & 0.897 & 0.897 \\
+Mean $|C|$ & 2.61 & 2.61 & 2.61 & 2.61 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[t]
+\centering
+\small
+\caption{Coordination accuracy on TRUTHFULQA with Mistral-7B-Instruct-v0.3 under overconfident attack ($\alpha=0.1$, $N=5$). Mean $\pm$ 95\% CI over 20 seeds. Significance vs.\ CTC-Global: $^*p<.05$, $^{**}p<.01$, $^{***}p<.001$ (Wilcoxon).}}
+\label{tab:truthfulqa_mistral_7b_instruct_v0_3}
+\begin{tabular}{lrrrr}
+\toprule
+Method & $k=0$ & $k=1$ & $k=2$ & $k=3$ \\
+\midrule
+Vanilla (single) & 0.619{\small$\pm$0.006}$^{***}$ & 0.494{\small$\pm$0.009}$^{***}$ & 0.372{\small$\pm$0.010}$^{***}$ & 0.249{\small$\pm$0.008}$^{***}$ \\
+Avg-Ensemble & 0.633{\small$\pm$0.005}$^{***}$ & 0.632{\small$\pm$0.005} & 0.589{\small$\pm$0.006} & 0.078{\small$\pm$0.004}$^{***}$ \\
+Majority Vote & 0.633{\small$\pm$0.005}$^{***}$ & 0.627{\small$\pm$0.005} & 0.596{\small$\pm$0.007} & 0.059{\small$\pm$0.005}$^{***}$ \\
+EntropyTrust & 0.638{\small$\pm$0.006} & 0.510{\small$\pm$0.006}$^{***}$ & 0.472{\small$\pm$0.006}$^{***}$ & 0.436{\small$\pm$0.008}$^{***}$ \\
+CTC-Global & 0.633{\small$\pm$0.005}$^{***}$ & 0.630{\small$\pm$0.006} & 0.600{\small$\pm$0.005} & 0.361{\small$\pm$0.017}$^{***}$ \\
+CTC-Focal & 0.622{\small$\pm$0.005}$^{***}$ & 0.599{\small$\pm$0.004} & 0.572{\small$\pm$0.005} & 0.537{\small$\pm$0.008} \\
+CTC-Agreement & 0.633{\small$\pm$0.005}$^{***}$ & 0.631{\small$\pm$0.006} & 0.598{\small$\pm$0.005} & 0.305{\small$\pm$0.017}$^{***}$ \\
+CTC-Calibrated & 0.632{\small$\pm$0.005}$^{***}$ & 0.630{\small$\pm$0.006} & 0.614{\small$\pm$0.006} & 0.371{\small$\pm$0.017}$^{***}$ \\
+\textbf{CTC-Hybrid (ours)} & \textbf{0.638{\small$\pm$0.006}} & \textbf{0.517{\small$\pm$0.005}} & \textbf{0.481{\small$\pm$0.006}} & \textbf{0.445{\small$\pm$0.008}} \\
+\midrule
+CTC Coverage & 0.897 & 0.897 & 0.897 & 0.898 \\
+Mean $|C|$ & 2.80 & 2.80 & 2.80 & 2.80 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[t]
+\centering
+\small
+\caption{Coordination accuracy on ARC with Mistral-7B-Instruct-v0.3 under overconfident attack ($\alpha=0.1$, $N=5$). Mean $\pm$ 95\% CI over 20 seeds. Significance vs.\ CTC-Global: $^*p<.05$, $^{**}p<.01$, $^{***}p<.001$ (Wilcoxon).}}
+\label{tab:arc_mistral_7b_instruct_v0_3}
+\begin{tabular}{lrrrr}
+\toprule
+Method & $k=0$ & $k=1$ & $k=2$ & $k=3$ \\
+\midrule
+Vanilla (single) & 0.689{\small$\pm$0.008} & 0.547{\small$\pm$0.009}$^{***}$ & 0.408{\small$\pm$0.011}$^{***}$ & 0.272{\small$\pm$0.010}$^{***}$ \\
+Avg-Ensemble & 0.673{\small$\pm$0.008} & 0.672{\small$\pm$0.008} & 0.646{\small$\pm$0.008} & 0.049{\small$\pm$0.004}$^{***}$ \\
+Majority Vote & 0.673{\small$\pm$0.008} & 0.681{\small$\pm$0.008} & 0.658{\small$\pm$0.009} & 0.038{\small$\pm$0.003}$^{***}$ \\
+EntropyTrust & 0.669{\small$\pm$0.008}$^{**}$ & 0.557{\small$\pm$0.007}$^{***}$ & 0.526{\small$\pm$0.008}$^{***}$ & 0.485{\small$\pm$0.008}$^{***}$ \\
+CTC-Global & 0.672{\small$\pm$0.007} & 0.672{\small$\pm$0.008} & 0.663{\small$\pm$0.008} & 0.534{\small$\pm$0.011} \\
+CTC-Focal & 0.688{\small$\pm$0.008} & 0.675{\small$\pm$0.007} & 0.663{\small$\pm$0.007} & 0.646{\small$\pm$0.006} \\
+CTC-Agreement & 0.672{\small$\pm$0.007} & 0.672{\small$\pm$0.008} & 0.662{\small$\pm$0.008} & 0.487{\small$\pm$0.014}$^{*}$ \\
+CTC-Calibrated & 0.676{\small$\pm$0.007} & 0.673{\small$\pm$0.008} & 0.676{\small$\pm$0.008} & 0.543{\small$\pm$0.010} \\
+\textbf{CTC-Hybrid (ours)} & \textbf{0.670{\small$\pm$0.008}} & \textbf{0.570{\small$\pm$0.007}} & \textbf{0.540{\small$\pm$0.007}} & \textbf{0.510{\small$\pm$0.008}} \\
+\midrule
+CTC Coverage & 0.904 & 0.904 & 0.905 & 0.905 \\
+Mean $|C|$ & 2.21 & 2.21 & 2.21 & 2.21 \\
+\bottomrule
+\end{tabular}
+\end{table}
+

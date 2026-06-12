@@ -1,0 +1,18 @@
+\begin{table}[t]
+\centering
+\small
+\caption{Multi-agent coordination accuracy on TRUTHFULQA under overconfident prompt-injection attack ($\alpha=0.1$, $N=5$ agents). Mean $\pm$ 95\% CI over 20 seeds. Significance vs.\ CTC: $^*p<.05$, $^{**}p<.01$, $^{***}p<.001$ (Wilcoxon).}}
+\label{tab:truthfulqa_main}
+\begin{tabular}{lrrrr}
+\toprule
+Method & $k=0$ & $k=1$ & $k=2$ & $k=3$ \\
+\midrule
+Vanilla & 0.699 {\small$\pm$0.005}$^{***}$ & 0.557 {\small$\pm$0.009}$^{***}$ & 0.415 {\small$\pm$0.010}$^{***}$ & 0.279 {\small$\pm$0.009}$^{***}$ \\
+Avg-Ensemble & 0.717 {\small$\pm$0.006} & 0.713 {\small$\pm$0.005} & 0.690 {\small$\pm$0.005} & 0.157 {\small$\pm$0.005}$^{***}$ \\
+Majority Vote & 0.704 {\small$\pm$0.005}$^{**}$ & 0.701 {\small$\pm$0.005} & 0.688 {\small$\pm$0.006} & 0.084 {\small$\pm$0.005}$^{***}$ \\
+EntropyTrust & 0.718 {\small$\pm$0.006} & 0.708 {\small$\pm$0.006} & 0.690 {\small$\pm$0.005} & 0.663 {\small$\pm$0.006}$^*$ \\
+\textbf{CTC \textbf{(ours)}} & \textbf{0.707 {\small$\pm$0.005}} & \textbf{0.698 {\small$\pm$0.005}} & \textbf{0.686 {\small$\pm$0.005}} & \textbf{0.671 {\small$\pm$0.006}} \\
+\bottomrule
+\end{tabular}
+\end{table}
+

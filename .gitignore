@@ -1,0 +1,40 @@
+# ─── Heavy data files (rebuild from cache) ───────────────────────────────
+# Raw per-question results — 1.3 GB. Keep summary_results.json instead.
+results/raw_results.json
+results/raw_results.json.tmp
+results/raw_results.json.dedup
+results/raw_results*.bak
+
+# LLM inference cache (rebuild via run.slurm Phase 1)
+data/cache/
+data/cache/**
+
+# HuggingFace cache (not in repo)
+data/models/
+
+# ─── Build / runtime artifacts ───────────────────────────────────────────
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# ─── Environment ─────────────────────────────────────────────────────────
+.venv/
+venv/
+.env
+
+# ─── IDE ─────────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+.claude/
+
+# ─── OS ──────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ─── SLURM job stdout/stderr (regenerated each run) ──────────────────────
+slurm-*.out
+results/ctc_llm_*.err
+results/backfill_*.err

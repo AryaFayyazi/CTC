@@ -1,0 +1,1079 @@
+Node   : aban
+GPUs   : 0
+CPUs   : 8
+Date   : Mon Jun  8 08:20:32 PM PDT 2026
+
+========================================
+PHASE 1: FETCH LLM RESPONSES
+Cache files found: 192760
+========================================
+Loading MMLU (16 subjects)…
+  3630 questions
+Loading TruthfulQA…
+  600 questions
+Loading ARC-Challenge…
+  600 questions
+
+Unique questions   : 4819
+Models             : ['Qwen/Qwen2.5-7B-Instruct', 'mistralai/Mistral-7B-Instruct-v0.3', 'Qwen/Qwen3-30B-A3B-Instruct-2507', 'microsoft/Phi-3.5-mini-instruct']
+Primary (ablations): Qwen/Qwen2.5-7B-Instruct
+Clean personas     : 5 per model (+ 5 extra on primary)
+Inject personas    : 5 × 2 (primary only)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+MODEL: Qwen/Qwen2.5-7B-Instruct  (PRIMARY)  bs=64
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[clean] 10 agents × 4819 questions
+Loading Qwen/Qwen2.5-7B-Instruct …
+  Loaded on cuda:0
+  48190 already cached, 0 to compute
+
+[injection] 2 attacks × 5 agents × 4819 questions
+  [injection] 0 pending pairs across 2 attacks
+
+  Model Qwen/Qwen2.5-7B-Instruct done in 8s
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+MODEL: mistralai/Mistral-7B-Instruct-v0.3  (aux)  bs=64
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[clean] 5 agents × 4819 questions
+Loading mistralai/Mistral-7B-Instruct-v0.3 …
+  Loaded on cuda:0
+  24095 already cached, 0 to compute
+
+  Model mistralai/Mistral-7B-Instruct-v0.3 done in 3s
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+MODEL: Qwen/Qwen3-30B-A3B-Instruct-2507  (aux)  bs=4
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[clean] 5 agents × 4819 questions
+Loading Qwen/Qwen3-30B-A3B-Instruct-2507 …
+  Loaded on cuda:0
+  0 already cached, 24095 to compute
+    500/24095  (2%)  elapsed 22s  ETA 1026s
+    1000/24095  (4%)  elapsed 41s  ETA 941s
+    1500/24095  (6%)  elapsed 59s  ETA 889s
+    2000/24095  (8%)  elapsed 80s  ETA 884s
+    2500/24095  (10%)  elapsed 99s  ETA 853s
+    3000/24095  (12%)  elapsed 117s  ETA 824s
+    3500/24095  (15%)  elapsed 136s  ETA 798s
+    4000/24095  (17%)  elapsed 154s  ETA 772s
+    4500/24095  (19%)  elapsed 172s  ETA 748s
+    5000/24095  (21%)  elapsed 190s  ETA 727s
+    5500/24095  (23%)  elapsed 209s  ETA 708s
+    6000/24095  (25%)  elapsed 228s  ETA 687s
+    6500/24095  (27%)  elapsed 246s  ETA 665s
+    7000/24095  (29%)  elapsed 266s  ETA 650s
+    7500/24095  (31%)  elapsed 284s  ETA 630s
+    8000/24095  (33%)  elapsed 303s  ETA 609s
+    8500/24095  (35%)  elapsed 321s  ETA 589s
+    9000/24095  (37%)  elapsed 339s  ETA 569s
+    9500/24095  (39%)  elapsed 357s  ETA 549s
+    10000/24095  (42%)  elapsed 376s  ETA 530s
+    10500/24095  (44%)  elapsed 395s  ETA 511s
+    11000/24095  (46%)  elapsed 413s  ETA 492s
+    11500/24095  (48%)  elapsed 432s  ETA 473s
+    12000/24095  (50%)  elapsed 451s  ETA 455s
+    12500/24095  (52%)  elapsed 470s  ETA 436s
+    13000/24095  (54%)  elapsed 488s  ETA 417s
+    13500/24095  (56%)  elapsed 507s  ETA 398s
+    14000/24095  (58%)  elapsed 525s  ETA 378s
+    14500/24095  (60%)  elapsed 543s  ETA 360s
+    15000/24095  (62%)  elapsed 562s  ETA 341s
+    15500/24095  (64%)  elapsed 581s  ETA 322s
+    16000/24095  (66%)  elapsed 599s  ETA 303s
+    16500/24095  (68%)  elapsed 618s  ETA 285s
+    17000/24095  (71%)  elapsed 636s  ETA 266s
+    17500/24095  (73%)  elapsed 655s  ETA 247s
+    18000/24095  (75%)  elapsed 673s  ETA 228s
+    18500/24095  (77%)  elapsed 691s  ETA 209s
+    19000/24095  (79%)  elapsed 709s  ETA 190s
+    19500/24095  (81%)  elapsed 728s  ETA 172s
+    20000/24095  (83%)  elapsed 747s  ETA 153s
+    20500/24095  (85%)  elapsed 765s  ETA 134s
+    21000/24095  (87%)  elapsed 783s  ETA 115s
+    21500/24095  (89%)  elapsed 802s  ETA 97s
+    22000/24095  (91%)  elapsed 821s  ETA 78s
+    22500/24095  (93%)  elapsed 839s  ETA 59s
+    23000/24095  (95%)  elapsed 857s  ETA 41s
+    23500/24095  (98%)  elapsed 875s  ETA 22s
+    24000/24095  (100%)  elapsed 893s  ETA 4s
+    24095/24095  (100%)  elapsed 897s  ETA 0s
+
+  Model Qwen/Qwen3-30B-A3B-Instruct-2507 done in 909s
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+MODEL: microsoft/Phi-3.5-mini-instruct  (aux)  bs=64
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[clean] 5 agents × 4819 questions
+Loading microsoft/Phi-3.5-mini-instruct …
+  Loaded on cuda:0
+  24095 already cached, 0 to compute
+
+  Model microsoft/Phi-3.5-mini-instruct done in 2s
+
+Total cache files: 217455
+Ready for Phase 2.
+
+Phase 1 complete.  Starting Phase 2 (CPU only)…
+
+========================================
+PHASE 2: COORDINATION EXPERIMENTS
+========================================
+Loading MMLU (16 subjects)…
+  3630 questions
+Loading TruthfulQA…
+  600 questions
+Loading ARC-Challenge…
+  600 questions
+Resuming: 5470 records already in results/raw_results.json
+
+Models      : ['Qwen/Qwen2.5-7B-Instruct', 'mistralai/Mistral-7B-Instruct-v0.3', 'Qwen/Qwen3-30B-A3B-Instruct-2507', 'microsoft/Phi-3.5-mini-instruct']
+Primary     : Qwen/Qwen2.5-7B-Instruct
+Tasks       : ['mmlu', 'truthfulqa', 'arc']
+Seeds       : 20
+Cache dir   : data/cache
+
+====================================================================
+EXPERIMENT 1: MAIN MULTI-MODEL (overconfident, α=0.10)
+====================================================================
+  [E1] Qwen3-30B-A3B-Instruct-2507    mmlu        seed= 0  (4 records, 3.3m)
+  [E1] Qwen3-30B-A3B-Instruct-2507    mmlu        seed= 1  (8 records, 6.7m)
+  [E1] Qwen3-30B-A3B-Instruct-2507    mmlu        seed= 2  (12 records, 10.0m)
+  [E1] Qwen3-30B-A3B-Instruct-2507    mmlu        seed= 3  (16 records, 13.4m)
+  [E1] Qwen3-30B-A3B-Instruct-2507    mmlu        seed= 4  (20 records, 16.7m)
+  [E1] Qwen3-30B-A3B-Instruct-2507    mmlu        seed= 5  (24 records, 20.1m)
+  [E1] Qwen3-30B-A3B-Instruct-2507    mmlu        seed= 6  (28 records, 23.5m)
+  [E1] Qwen3-30B-A3B-Instruct-2507    mmlu        seed= 7  (32 records, 26.8m)
+  [E1] Qwen3-30B-A3B-Instruct-2507    mmlu        seed= 8  (36 records, 30.2m)
+  [E1] Qwen3-30B-A3B-Instruct-2507    mmlu        seed= 9  (40 records, 33.6m)
+  [E1] Qwen3-30B-A3B-Instruct-2507    mmlu        seed=10  (44 records, 37.0m)
+  [E1] Qwen3-30B-A3B-Instruct-2507    mmlu        seed=11  (48 records, 40.4m)
+  [E1] Qwen3-30B-A3B-Instruct-2507    mmlu        seed=12  (52 records, 43.8m)
+  [E1] Qwen3-30B-A3B-Instruct-2507    mmlu        seed=13  (56 records, 47.3m)
+  [E1] Qwen3-30B-A3B-Instruct-2507    mmlu        seed=14  (60 records, 50.7m)
+  [E1] Qwen3-30B-A3B-Instruct-2507    mmlu        seed=15  (64 records, 54.1m)
+  [E1] Qwen3-30B-A3B-Instruct-2507    mmlu        seed=16  (68 records, 57.6m)
+  [E1] Qwen3-30B-A3B-Instruct-2507    mmlu        seed=17  (72 records, 61.1m)
+  [E1] Qwen3-30B-A3B-Instruct-2507    mmlu        seed=18  (76 records, 64.5m)
+  [E1] Qwen3-30B-A3B-Instruct-2507    mmlu        seed=19  (80 records, 68.0m)
+  [E1] Qwen3-30B-A3B-Instruct-2507    truthfulqa  seed= 0  (84 records, 71.3m)
+  [E1] Qwen3-30B-A3B-Instruct-2507    truthfulqa  seed= 1  (88 records, 74.6m)
+  [E1] Qwen3-30B-A3B-Instruct-2507    truthfulqa  seed= 2  (92 records, 77.9m)
+  [E1] Qwen3-30B-A3B-Instruct-2507    truthfulqa  seed= 3  (96 records, 81.1m)
+  [E1] Qwen3-30B-A3B-Instruct-2507    truthfulqa  seed= 4  (100 records, 84.4m)
+  [E1] Qwen3-30B-A3B-Instruct-2507    truthfulqa  seed= 5  (104 records, 87.7m)
+  [E1] Qwen3-30B-A3B-Instruct-2507    truthfulqa  seed= 6  (108 records, 91.0m)
+  [E1] Qwen3-30B-A3B-Instruct-2507    truthfulqa  seed= 7  (112 records, 94.2m)
+  [E1] Qwen3-30B-A3B-Instruct-2507    truthfulqa  seed= 8  (116 records, 97.5m)
+  [E1] Qwen3-30B-A3B-Instruct-2507    truthfulqa  seed= 9  (120 records, 100.8m)
+  [E1] Qwen3-30B-A3B-Instruct-2507    truthfulqa  seed=10  (124 records, 104.1m)
+  [E1] Qwen3-30B-A3B-Instruct-2507    truthfulqa  seed=11  (128 records, 107.4m)
+  [E1] Qwen3-30B-A3B-Instruct-2507    truthfulqa  seed=12  (132 records, 110.7m)
+  [E1] Qwen3-30B-A3B-Instruct-2507    truthfulqa  seed=13  (136 records, 114.0m)
+  [E1] Qwen3-30B-A3B-Instruct-2507    truthfulqa  seed=14  (140 records, 117.2m)
+  [E1] Qwen3-30B-A3B-Instruct-2507    truthfulqa  seed=15  (144 records, 120.5m)
+  [E1] Qwen3-30B-A3B-Instruct-2507    truthfulqa  seed=16  (148 records, 123.8m)
+  [E1] Qwen3-30B-A3B-Instruct-2507    truthfulqa  seed=17  (152 records, 127.1m)
+  [E1] Qwen3-30B-A3B-Instruct-2507    truthfulqa  seed=18  (156 records, 130.4m)
+  [E1] Qwen3-30B-A3B-Instruct-2507    truthfulqa  seed=19  (160 records, 133.7m)
+  [E1] Qwen3-30B-A3B-Instruct-2507    arc         seed= 0  (164 records, 137.0m)
+  [E1] Qwen3-30B-A3B-Instruct-2507    arc         seed= 1  (168 records, 140.3m)
+  [E1] Qwen3-30B-A3B-Instruct-2507    arc         seed= 2  (172 records, 143.5m)
+  [E1] Qwen3-30B-A3B-Instruct-2507    arc         seed= 3  (176 records, 146.8m)
+  [E1] Qwen3-30B-A3B-Instruct-2507    arc         seed= 4  (180 records, 150.1m)
+  [E1] Qwen3-30B-A3B-Instruct-2507    arc         seed= 5  (184 records, 153.4m)
+  [E1] Qwen3-30B-A3B-Instruct-2507    arc         seed= 6  (188 records, 156.7m)
+  [E1] Qwen3-30B-A3B-Instruct-2507    arc         seed= 7  (192 records, 160.0m)
+  [E1] Qwen3-30B-A3B-Instruct-2507    arc         seed= 8  (196 records, 163.3m)
+  [E1] Qwen3-30B-A3B-Instruct-2507    arc         seed= 9  (200 records, 166.6m)
+  [E1] Qwen3-30B-A3B-Instruct-2507    arc         seed=10  (204 records, 169.9m)
+  [E1] Qwen3-30B-A3B-Instruct-2507    arc         seed=11  (208 records, 173.2m)
+  [E1] Qwen3-30B-A3B-Instruct-2507    arc         seed=12  (212 records, 176.5m)
+  [E1] Qwen3-30B-A3B-Instruct-2507    arc         seed=13  (216 records, 179.8m)
+  [E1] Qwen3-30B-A3B-Instruct-2507    arc         seed=14  (220 records, 183.1m)
+  [E1] Qwen3-30B-A3B-Instruct-2507    arc         seed=15  (224 records, 186.5m)
+  [E1] Qwen3-30B-A3B-Instruct-2507    arc         seed=16  (228 records, 189.8m)
+  [E1] Qwen3-30B-A3B-Instruct-2507    arc         seed=17  (232 records, 193.1m)
+  [E1] Qwen3-30B-A3B-Instruct-2507    arc         seed=18  (236 records, 196.4m)
+  [E1] Qwen3-30B-A3B-Instruct-2507    arc         seed=19  (240 records, 199.7m)
+  [E1] Phi-3.5-mini-instruct          mmlu        seed= 0  (240 records, 199.7m)
+  [E1] Phi-3.5-mini-instruct          mmlu        seed= 1  (240 records, 199.7m)
+  [E1] Phi-3.5-mini-instruct          mmlu        seed= 2  (240 records, 199.7m)
+  [E1] Phi-3.5-mini-instruct          mmlu        seed= 3  (240 records, 199.7m)
+  [E1] Phi-3.5-mini-instruct          mmlu        seed= 4  (240 records, 199.7m)
+  [E1] Phi-3.5-mini-instruct          mmlu        seed= 5  (240 records, 199.7m)
+  [E1] Phi-3.5-mini-instruct          mmlu        seed= 6  (240 records, 199.7m)
+  [E1] Phi-3.5-mini-instruct          mmlu        seed= 7  (240 records, 199.7m)
+  [E1] Phi-3.5-mini-instruct          mmlu        seed= 8  (240 records, 199.7m)
+  [E1] Phi-3.5-mini-instruct          mmlu        seed= 9  (240 records, 199.7m)
+  [E1] Phi-3.5-mini-instruct          mmlu        seed=10  (240 records, 199.7m)
+  [E1] Phi-3.5-mini-instruct          mmlu        seed=11  (240 records, 199.7m)
+  [E1] Phi-3.5-mini-instruct          mmlu        seed=12  (240 records, 199.7m)
+  [E1] Phi-3.5-mini-instruct          mmlu        seed=13  (240 records, 199.7m)
+  [E1] Phi-3.5-mini-instruct          mmlu        seed=14  (240 records, 199.7m)
+  [E1] Phi-3.5-mini-instruct          mmlu        seed=15  (240 records, 199.7m)
+  [E1] Phi-3.5-mini-instruct          mmlu        seed=16  (240 records, 199.7m)
+  [E1] Phi-3.5-mini-instruct          mmlu        seed=17  (240 records, 199.7m)
+  [E1] Phi-3.5-mini-instruct          mmlu        seed=18  (240 records, 199.7m)
+  [E1] Phi-3.5-mini-instruct          mmlu        seed=19  (240 records, 199.7m)
+  [E1] Phi-3.5-mini-instruct          truthfulqa  seed= 0  (240 records, 199.7m)
+  [E1] Phi-3.5-mini-instruct          truthfulqa  seed= 1  (240 records, 199.7m)
+  [E1] Phi-3.5-mini-instruct          truthfulqa  seed= 2  (240 records, 199.7m)
+  [E1] Phi-3.5-mini-instruct          truthfulqa  seed= 3  (240 records, 199.7m)
+  [E1] Phi-3.5-mini-instruct          truthfulqa  seed= 4  (240 records, 199.7m)
+  [E1] Phi-3.5-mini-instruct          truthfulqa  seed= 5  (240 records, 199.7m)
+  [E1] Phi-3.5-mini-instruct          truthfulqa  seed= 6  (240 records, 199.7m)
+  [E1] Phi-3.5-mini-instruct          truthfulqa  seed= 7  (240 records, 199.7m)
+  [E1] Phi-3.5-mini-instruct          truthfulqa  seed= 8  (240 records, 199.7m)
+  [E1] Phi-3.5-mini-instruct          truthfulqa  seed= 9  (240 records, 199.7m)
+  [E1] Phi-3.5-mini-instruct          truthfulqa  seed=10  (240 records, 199.7m)
+  [E1] Phi-3.5-mini-instruct          truthfulqa  seed=11  (240 records, 199.7m)
+  [E1] Phi-3.5-mini-instruct          truthfulqa  seed=12  (240 records, 199.7m)
+  [E1] Phi-3.5-mini-instruct          truthfulqa  seed=13  (240 records, 199.7m)
+  [E1] Phi-3.5-mini-instruct          truthfulqa  seed=14  (240 records, 199.7m)
+  [E1] Phi-3.5-mini-instruct          truthfulqa  seed=15  (240 records, 199.7m)
+  [E1] Phi-3.5-mini-instruct          truthfulqa  seed=16  (240 records, 199.7m)
+  [E1] Phi-3.5-mini-instruct          truthfulqa  seed=17  (240 records, 199.7m)
+  [E1] Phi-3.5-mini-instruct          truthfulqa  seed=18  (240 records, 199.7m)
+  [E1] Phi-3.5-mini-instruct          truthfulqa  seed=19  (240 records, 199.7m)
+  [E1] Phi-3.5-mini-instruct          arc         seed= 0  (240 records, 199.7m)
+  [E1] Phi-3.5-mini-instruct          arc         seed= 1  (240 records, 199.7m)
+  [E1] Phi-3.5-mini-instruct          arc         seed= 2  (240 records, 199.7m)
+  [E1] Phi-3.5-mini-instruct          arc         seed= 3  (240 records, 199.7m)
+  [E1] Phi-3.5-mini-instruct          arc         seed= 4  (240 records, 199.7m)
+  [E1] Phi-3.5-mini-instruct          arc         seed= 5  (240 records, 199.7m)
+  [E1] Phi-3.5-mini-instruct          arc         seed= 6  (240 records, 199.7m)
+  [E1] Phi-3.5-mini-instruct          arc         seed= 7  (240 records, 199.7m)
+  [E1] Phi-3.5-mini-instruct          arc         seed= 8  (240 records, 199.7m)
+  [E1] Phi-3.5-mini-instruct          arc         seed= 9  (240 records, 199.7m)
+  [E1] Phi-3.5-mini-instruct          arc         seed=10  (240 records, 199.7m)
+  [E1] Phi-3.5-mini-instruct          arc         seed=11  (240 records, 199.7m)
+  [E1] Phi-3.5-mini-instruct          arc         seed=12  (240 records, 199.7m)
+  [E1] Phi-3.5-mini-instruct          arc         seed=13  (240 records, 199.7m)
+  [E1] Phi-3.5-mini-instruct          arc         seed=14  (240 records, 199.7m)
+  [E1] Phi-3.5-mini-instruct          arc         seed=15  (240 records, 199.7m)
+  [E1] Phi-3.5-mini-instruct          arc         seed=16  (240 records, 199.7m)
+  [E1] Phi-3.5-mini-instruct          arc         seed=17  (240 records, 199.7m)
+  [E1] Phi-3.5-mini-instruct          arc         seed=18  (240 records, 199.7m)
+  [E1] Phi-3.5-mini-instruct          arc         seed=19  (240 records, 199.7m)
+
+====================================================================
+EXPERIMENT 2: ATTACK × ALPHA ABLATION (Qwen2.5-7B-Instruct)
+====================================================================
+  [E2] mmlu        seed= 0  (5710 records, 199.7m)
+  [E2] mmlu        seed= 1  (5710 records, 199.7m)
+  [E2] mmlu        seed= 2  (5710 records, 199.7m)
+  [E2] mmlu        seed= 3  (5710 records, 199.7m)
+  [E2] mmlu        seed= 4  (5710 records, 199.7m)
+  [E2] mmlu        seed= 5  (5710 records, 199.7m)
+  [E2] mmlu        seed= 6  (5710 records, 199.7m)
+  [E2] mmlu        seed= 7  (5710 records, 199.7m)
+  [E2] mmlu        seed= 8  (5710 records, 199.7m)
+  [E2] mmlu        seed= 9  (5710 records, 199.7m)
+  [E2] mmlu        seed=10  (5710 records, 199.7m)
+  [E2] mmlu        seed=11  (5710 records, 199.7m)
+  [E2] mmlu        seed=12  (5710 records, 199.7m)
+  [E2] mmlu        seed=13  (5710 records, 199.7m)
+  [E2] mmlu        seed=14  (5710 records, 199.7m)
+  [E2] mmlu        seed=15  (5710 records, 199.7m)
+  [E2] mmlu        seed=16  (5710 records, 199.7m)
+  [E2] mmlu        seed=17  (5710 records, 199.7m)
+  [E2] mmlu        seed=18  (5710 records, 199.7m)
+  [E2] mmlu        seed=19  (5710 records, 199.7m)
+  [E2] truthfulqa  seed= 0  (5710 records, 199.7m)
+  [E2] truthfulqa  seed= 1  (5710 records, 199.7m)
+  [E2] truthfulqa  seed= 2  (5710 records, 199.7m)
+  [E2] truthfulqa  seed= 3  (5710 records, 199.7m)
+  [E2] truthfulqa  seed= 4  (5710 records, 199.7m)
+  [E2] truthfulqa  seed= 5  (5710 records, 199.7m)
+  [E2] truthfulqa  seed= 6  (5710 records, 199.7m)
+  [E2] truthfulqa  seed= 7  (5710 records, 199.7m)
+  [E2] truthfulqa  seed= 8  (5710 records, 199.7m)
+  [E2] truthfulqa  seed= 9  (5710 records, 199.7m)
+  [E2] truthfulqa  seed=10  (5710 records, 199.7m)
+  [E2] truthfulqa  seed=11  (5710 records, 199.7m)
+  [E2] truthfulqa  seed=12  (5710 records, 199.7m)
+  [E2] truthfulqa  seed=13  (5710 records, 199.7m)
+  [E2] truthfulqa  seed=14  (5710 records, 199.7m)
+  [E2] truthfulqa  seed=15  (5710 records, 199.7m)
+  [E2] truthfulqa  seed=16  (5710 records, 199.7m)
+  [E2] truthfulqa  seed=17  (5710 records, 199.7m)
+  [E2] truthfulqa  seed=18  (5710 records, 199.7m)
+  [E2] truthfulqa  seed=19  (5710 records, 199.7m)
+  [E2] arc         seed= 0  (5710 records, 199.7m)
+  [E2] arc         seed= 1  (5710 records, 199.7m)
+  [E2] arc         seed= 2  (5710 records, 199.7m)
+  [E2] arc         seed= 3  (5710 records, 199.7m)
+  [E2] arc         seed= 4  (5710 records, 199.7m)
+  [E2] arc         seed= 5  (5710 records, 199.7m)
+  [E2] arc         seed= 6  (5710 records, 199.7m)
+  [E2] arc         seed= 7  (5710 records, 199.7m)
+  [E2] arc         seed= 8  (5710 records, 199.7m)
+  [E2] arc         seed= 9  (5710 records, 199.7m)
+  [E2] arc         seed=10  (5710 records, 199.7m)
+  [E2] arc         seed=11  (5710 records, 199.7m)
+  [E2] arc         seed=12  (5710 records, 199.7m)
+  [E2] arc         seed=13  (5710 records, 199.7m)
+  [E2] arc         seed=14  (5710 records, 199.7m)
+  [E2] arc         seed=15  (5710 records, 199.7m)
+  [E2] arc         seed=16  (5748 records, 230.9m)
+  [E2] arc         seed=17  (5832 records, 300.3m)
+  [E2] arc         seed=18  (5916 records, 370.1m)
+  [E2] arc         seed=19  (6000 records, 440.4m)
+
+====================================================================
+EXPERIMENT 3: N=10 SCALING (Qwen2.5-7B-Instruct, MMLU)
+====================================================================
+  [E3] N=10 mmlu seed= 0  (6004 records, 444.1m)
+  [E3] N=10 mmlu seed= 1  (6008 records, 447.8m)
+  [E3] N=10 mmlu seed= 2  (6012 records, 451.5m)
+  [E3] N=10 mmlu seed= 3  (6016 records, 455.3m)
+  [E3] N=10 mmlu seed= 4  (6020 records, 459.0m)
+  [E3] N=10 mmlu seed= 5  (6024 records, 462.7m)
+  [E3] N=10 mmlu seed= 6  (6028 records, 466.4m)
+  [E3] N=10 mmlu seed= 7  (6032 records, 470.2m)
+  [E3] N=10 mmlu seed= 8  (6036 records, 474.0m)
+  [E3] N=10 mmlu seed= 9  (6040 records, 477.7m)
+  [E3] N=10 mmlu seed=10  (6044 records, 481.5m)
+  [E3] N=10 mmlu seed=11  (6048 records, 485.3m)
+  [E3] N=10 mmlu seed=12  (6052 records, 489.1m)
+  [E3] N=10 mmlu seed=13  (6056 records, 492.9m)
+  [E3] N=10 mmlu seed=14  (6060 records, 496.7m)
+  [E3] N=10 mmlu seed=15  (6064 records, 500.5m)
+  [E3] N=10 mmlu seed=16  (6068 records, 504.3m)
+  [E3] N=10 mmlu seed=17  (6072 records, 508.2m)
+  [E3] N=10 mmlu seed=18  (6076 records, 512.0m)
+  [E3] N=10 mmlu seed=19  (6080 records, 515.8m)
+
+====================================================================
+EXPERIMENT 4: HETEROGENEOUS COMMITTEE (5 models)
+====================================================================
+Loading allenai/Olmo-3-7B-Instruct …
+  Loaded on cuda:0
+  [E4-hetero] mmlu        seed= 0  (6084 records, 521.1m)
+  [E4-hetero] mmlu        seed= 1  (6088 records, 524.9m)
+  [E4-hetero] mmlu        seed= 2  (6092 records, 528.6m)
+  [E4-hetero] mmlu        seed= 3  (6096 records, 532.3m)
+  [E4-hetero] mmlu        seed= 4  (6100 records, 536.0m)
+  [E4-hetero] mmlu        seed= 5  (6104 records, 539.7m)
+  [E4-hetero] mmlu        seed= 6  (6108 records, 543.5m)
+  [E4-hetero] mmlu        seed= 7  (6112 records, 547.2m)
+  [E4-hetero] mmlu        seed= 8  (6116 records, 551.0m)
+  [E4-hetero] mmlu        seed= 9  (6120 records, 554.7m)
+  [E4-hetero] mmlu        seed=10  (6124 records, 558.5m)
+  [E4-hetero] mmlu        seed=11  (6128 records, 562.3m)
+  [E4-hetero] mmlu        seed=12  (6132 records, 566.1m)
+  [E4-hetero] mmlu        seed=13  (6136 records, 569.9m)
+  [E4-hetero] mmlu        seed=14  (6140 records, 573.7m)
+  [E4-hetero] mmlu        seed=15  (6144 records, 577.5m)
+  [E4-hetero] mmlu        seed=16  (6148 records, 581.3m)
+  [E4-hetero] mmlu        seed=17  (6152 records, 585.1m)
+  [E4-hetero] mmlu        seed=18  (6156 records, 589.0m)
+  [E4-hetero] mmlu        seed=19  (6160 records, 592.8m)
+  [E4-hetero] truthfulqa  seed= 0  (6164 records, 596.7m)
+  [E4-hetero] truthfulqa  seed= 1  (6168 records, 600.3m)
+  [E4-hetero] truthfulqa  seed= 2  (6172 records, 604.0m)
+  [E4-hetero] truthfulqa  seed= 3  (6176 records, 607.6m)
+  [E4-hetero] truthfulqa  seed= 4  (6180 records, 611.3m)
+  [E4-hetero] truthfulqa  seed= 5  (6184 records, 614.9m)
+  [E4-hetero] truthfulqa  seed= 6  (6188 records, 618.6m)
+  [E4-hetero] truthfulqa  seed= 7  (6192 records, 622.2m)
+  [E4-hetero] truthfulqa  seed= 8  (6196 records, 625.8m)
+  [E4-hetero] truthfulqa  seed= 9  (6200 records, 629.5m)
+  [E4-hetero] truthfulqa  seed=10  (6204 records, 633.1m)
+  [E4-hetero] truthfulqa  seed=11  (6208 records, 636.8m)
+  [E4-hetero] truthfulqa  seed=12  (6212 records, 640.4m)
+  [E4-hetero] truthfulqa  seed=13  (6216 records, 644.1m)
+  [E4-hetero] truthfulqa  seed=14  (6220 records, 647.7m)
+  [E4-hetero] truthfulqa  seed=15  (6224 records, 651.4m)
+  [E4-hetero] truthfulqa  seed=16  (6228 records, 655.1m)
+  [E4-hetero] truthfulqa  seed=17  (6232 records, 658.7m)
+  [E4-hetero] truthfulqa  seed=18  (6236 records, 662.4m)
+  [E4-hetero] truthfulqa  seed=19  (6240 records, 666.1m)
+  [E4-hetero] arc         seed= 0  (6244 records, 669.9m)
+  [E4-hetero] arc         seed= 1  (6248 records, 673.6m)
+  [E4-hetero] arc         seed= 2  (6252 records, 677.2m)
+  [E4-hetero] arc         seed= 3  (6256 records, 680.9m)
+  [E4-hetero] arc         seed= 4  (6260 records, 684.5m)
+  [E4-hetero] arc         seed= 5  (6264 records, 688.2m)
+  [E4-hetero] arc         seed= 6  (6268 records, 691.8m)
+  [E4-hetero] arc         seed= 7  (6272 records, 695.5m)
+  [E4-hetero] arc         seed= 8  (6276 records, 699.2m)
+  [E4-hetero] arc         seed= 9  (6280 records, 702.9m)
+  [E4-hetero] arc         seed=10  (6284 records, 706.5m)
+  [E4-hetero] arc         seed=11  (6288 records, 710.2m)
+  [E4-hetero] arc         seed=12  (6292 records, 713.9m)
+  [E4-hetero] arc         seed=13  (6296 records, 717.6m)
+  [E4-hetero] arc         seed=14  (6300 records, 721.3m)
+  [E4-hetero] arc         seed=15  (6304 records, 725.0m)
+  [E4-hetero] arc         seed=16  (6308 records, 728.7m)
+  [E4-hetero] arc         seed=17  (6312 records, 732.4m)
+  [E4-hetero] arc         seed=18  (6316 records, 736.0m)
+  [E4-hetero] arc         seed=19  (6320 records, 739.7m)
+
+====================================================================
+EXPERIMENT 5: DOMAIN-SPECIALISED PERSONAS (Qwen2.5-7B-Instruct, MMLU)
+====================================================================
+Loading Qwen/Qwen2.5-7B-Instruct …
+  Loaded on cuda:0
+  [E5-domain] mmlu seed= 0  (6324 records, 748.8m)
+  [E5-domain] mmlu seed= 1  (6328 records, 752.8m)
+  [E5-domain] mmlu seed= 2  (6332 records, 756.8m)
+  [E5-domain] mmlu seed= 3  (6336 records, 760.7m)
+  [E5-domain] mmlu seed= 4  (6340 records, 764.7m)
+  [E5-domain] mmlu seed= 5  (6344 records, 768.7m)
+  [E5-domain] mmlu seed= 6  (6348 records, 772.6m)
+  [E5-domain] mmlu seed= 7  (6352 records, 776.7m)
+  [E5-domain] mmlu seed= 8  (6356 records, 780.7m)
+  [E5-domain] mmlu seed= 9  (6360 records, 784.7m)
+  [E5-domain] mmlu seed=10  (6364 records, 788.7m)
+  [E5-domain] mmlu seed=11  (6368 records, 792.7m)
+  [E5-domain] mmlu seed=12  (6372 records, 796.8m)
+  [E5-domain] mmlu seed=13  (6376 records, 800.8m)
+  [E5-domain] mmlu seed=14  (6380 records, 804.8m)
+  [E5-domain] mmlu seed=15  (6384 records, 808.8m)
+  [E5-domain] mmlu seed=16  (6388 records, 812.9m)
+  [E5-domain] mmlu seed=17  (6392 records, 817.0m)
+  [E5-domain] mmlu seed=18  (6396 records, 821.1m)
+  [E5-domain] mmlu seed=19  (6400 records, 825.2m)
+
+Done. 6400 records saved to results/raw_results.json
+
+========================================
+PHASE 3: TABLES
+========================================
+
+========================================================================================
+CROSS-MODEL: k=3 (60% corrupt) accuracy  |  α=0.1  |  overconfident
+========================================================================================
+Model                       Task            Majority Vote       EntropyTrust        CTC-Global        
+----------------------------------------------------------------------------------------
+Qwen2.5-7B-Instruct         mmlu            0.065±0.002      0.482±0.003      0.562±0.004    
+Qwen2.5-7B-Instruct         truthfulqa      0.084±0.005      0.547±0.007      0.569±0.011    
+Qwen2.5-7B-Instruct         arc             0.095±0.005      0.787±0.007      0.169±0.005    
+Qwen3-30B-A3B-Instruct-2507 mmlu            0.098±0.002      0.563±0.003      0.158±0.003    
+Qwen3-30B-A3B-Instruct-2507 truthfulqa      0.108±0.007      0.605±0.008      0.561±0.107    
+Qwen3-30B-A3B-Instruct-2507 arc             0.150±0.009      0.880±0.005      0.284±0.007    
+Phi-3.5-mini-instruct       mmlu            0.042±0.001      0.489±0.003      0.506±0.005    
+Phi-3.5-mini-instruct       truthfulqa      0.071±0.004      0.501±0.006      0.453±0.011    
+Phi-3.5-mini-instruct       arc             0.090±0.005      0.709±0.006      0.171±0.005    
+Mistral-7B-Instruct-v0.3    mmlu            0.034±0.001      0.289±0.002      0.371±0.002    
+Mistral-7B-Instruct-v0.3    truthfulqa      0.059±0.005      0.436±0.008      0.361±0.017    
+Mistral-7B-Instruct-v0.3    arc             0.038±0.003      0.485±0.008      0.534±0.011    
+========================================================================================
+
+========================================================================================
+Task: MMLU  |  Model: Qwen2.5-7B-Instruct  |  α=0.1  |  N=5  |  overconfident attack
+========================================================================================
+Method                        k=0           k=1           k=2           k=3         
+----------------------------------------------------------------------------------------
+Vanilla (single)              0.675±0.003***  0.538±0.004***  0.403±0.005***  0.269±0.004***
+Avg-Ensemble                  0.679±0.002     0.677±0.002     0.653±0.003***  0.098±0.002***
+Majority Vote                 0.679±0.002     0.677±0.003     0.661±0.003***  0.065±0.002***
+EntropyTrust                  0.676±0.002***  0.530±0.002***  0.505±0.002***  0.482±0.003***
+CTC-Global                    0.678±0.002     0.677±0.002     0.668±0.002     0.562±0.004   
+CTC-Focal                     0.675±0.002***  0.671±0.002***  0.665±0.002***  0.653±0.003   
+CTC-Agreement                 0.679±0.002     0.676±0.003     0.666±0.003***  0.526±0.003***
+CTC-Calibrated                0.679±0.002     0.677±0.002     0.674±0.002     0.569±0.004   
+CTC-Hybrid (ours)             0.676±0.002***  0.542±0.003***  0.517±0.002***  0.494±0.002***
+----------------------------------------------------------------------------------------
+CTC Coverage (clean)          0.899        0.899        0.899        0.899      
+CTC Mean Set Size             1.99         1.99         1.99         1.99       
+========================================================================================
+* p<0.05  ** p<0.01  *** p<0.001  (Wilcoxon CTC-Global > baseline)
+
+========================================================================================
+Task: TRUTHFULQA  |  Model: Qwen2.5-7B-Instruct  |  α=0.1  |  N=5  |  overconfident attack
+========================================================================================
+Method                        k=0           k=1           k=2           k=3         
+----------------------------------------------------------------------------------------
+Vanilla (single)              0.699±0.005***  0.557±0.009***  0.415±0.010***  0.279±0.009***
+Avg-Ensemble                  0.717±0.006     0.713±0.005**   0.684±0.005***  0.139±0.005***
+Majority Vote                 0.704±0.005***  0.701±0.005***  0.688±0.006***  0.084±0.005***
+EntropyTrust                  0.718±0.006     0.591±0.006***  0.571±0.007***  0.547±0.007** 
+CTC-Global                    0.717±0.006     0.714±0.005     0.698±0.005     0.569±0.011   
+CTC-Focal                     0.707±0.005***  0.698±0.005***  0.686±0.005***  0.671±0.006   
+CTC-Agreement                 0.717±0.005     0.713±0.005*    0.697±0.005*    0.523±0.013***
+CTC-Calibrated                0.716±0.005**   0.714±0.006     0.708±0.006     0.578±0.011   
+CTC-Hybrid (ours)             0.719±0.006     0.601±0.005***  0.580±0.006***  0.555±0.007*  
+----------------------------------------------------------------------------------------
+CTC Coverage (clean)          0.902        0.902        0.902        0.902      
+CTC Mean Set Size             2.08         2.08         2.08         2.08       
+========================================================================================
+* p<0.05  ** p<0.01  *** p<0.001  (Wilcoxon CTC-Global > baseline)
+
+========================================================================================
+Task: ARC  |  Model: Qwen2.5-7B-Instruct  |  α=0.1  |  N=5  |  overconfident attack
+========================================================================================
+Method                        k=0           k=1           k=2           k=3         
+----------------------------------------------------------------------------------------
+Vanilla (single)              0.892±0.004     0.711±0.009***  0.533±0.013***  0.355±0.011   
+Avg-Ensemble                  0.888±0.005*    0.889±0.005     0.879±0.005     0.170±0.005   
+Majority Vote                 0.886±0.005***  0.889±0.005     0.881±0.005     0.095±0.005***
+EntropyTrust                  0.890±0.005     0.824±0.007***  0.808±0.007***  0.787±0.007   
+CTC-Global                    0.888±0.005     0.888±0.005     0.866±0.003     0.169±0.005   
+CTC-Focal                     0.893±0.004     0.702±0.008***  0.524±0.012***  0.349±0.010   
+CTC-Agreement                 0.888±0.005     0.889±0.005     0.873±0.005     0.169±0.005   
+CTC-Calibrated                0.888±0.005     0.889±0.005     0.871±0.003     0.094±0.005***
+CTC-Hybrid (ours)             0.889±0.005     0.824±0.007***  0.808±0.007***  0.787±0.007   
+----------------------------------------------------------------------------------------
+CTC Coverage (clean)          0.905        0.905        0.905        0.905      
+CTC Mean Set Size             1.04         1.04         1.04         1.04       
+========================================================================================
+* p<0.05  ** p<0.01  *** p<0.001  (Wilcoxon CTC-Global > baseline)
+
+========================================================================================
+Task: MMLU  |  Model: Mistral-7B-Instruct-v0.3  |  α=0.1  |  N=5  |  overconfident attack
+========================================================================================
+Method                        k=0           k=1           k=2           k=3         
+----------------------------------------------------------------------------------------
+Vanilla (single)              0.518±0.003**   0.413±0.003***  0.309±0.003***  0.206±0.003***
+Avg-Ensemble                  0.518±0.002**   0.519±0.002     0.486±0.002***  0.041±0.001***
+Majority Vote                 0.520±0.002     0.519±0.002     0.499±0.002     0.034±0.001***
+EntropyTrust                  0.518±0.002***  0.338±0.002***  0.312±0.003***  0.289±0.002***
+CTC-Global                    0.519±0.002     0.519±0.002     0.496±0.003     0.371±0.002   
+CTC-Focal                     0.516±0.003***  0.506±0.002***  0.491±0.002***  0.471±0.002   
+CTC-Agreement                 0.519±0.002     0.519±0.002     0.495±0.003***  0.336±0.003***
+CTC-Calibrated                0.519±0.002     0.519±0.002     0.515±0.002     0.377±0.002   
+CTC-Hybrid (ours)             0.518±0.002***  0.351±0.002***  0.323±0.002***  0.300±0.003***
+----------------------------------------------------------------------------------------
+CTC Coverage (clean)          0.897        0.897        0.897        0.897      
+CTC Mean Set Size             2.61         2.61         2.61         2.61       
+========================================================================================
+* p<0.05  ** p<0.01  *** p<0.001  (Wilcoxon CTC-Global > baseline)
+
+========================================================================================
+Task: TRUTHFULQA  |  Model: Mistral-7B-Instruct-v0.3  |  α=0.1  |  N=5  |  overconfident attack
+========================================================================================
+Method                        k=0           k=1           k=2           k=3         
+----------------------------------------------------------------------------------------
+Vanilla (single)              0.619±0.006***  0.494±0.009***  0.372±0.010***  0.249±0.008***
+Avg-Ensemble                  0.633±0.005     0.632±0.005     0.589±0.006***  0.078±0.004***
+Majority Vote                 0.633±0.005     0.627±0.005*    0.596±0.007     0.059±0.005***
+EntropyTrust                  0.638±0.006     0.510±0.006***  0.472±0.006***  0.436±0.008   
+CTC-Global                    0.633±0.005     0.630±0.006     0.600±0.005     0.361±0.017   
+CTC-Focal                     0.622±0.005***  0.599±0.004***  0.572±0.005***  0.537±0.008   
+CTC-Agreement                 0.633±0.005     0.631±0.006     0.598±0.005***  0.305±0.017***
+CTC-Calibrated                0.632±0.005**   0.630±0.006     0.614±0.006     0.371±0.017   
+CTC-Hybrid (ours)             0.638±0.006     0.517±0.005***  0.481±0.006***  0.445±0.008   
+----------------------------------------------------------------------------------------
+CTC Coverage (clean)          0.897        0.897        0.897        0.898      
+CTC Mean Set Size             2.80         2.80         2.80         2.80       
+========================================================================================
+* p<0.05  ** p<0.01  *** p<0.001  (Wilcoxon CTC-Global > baseline)
+
+========================================================================================
+Task: ARC  |  Model: Mistral-7B-Instruct-v0.3  |  α=0.1  |  N=5  |  overconfident attack
+========================================================================================
+Method                        k=0           k=1           k=2           k=3         
+----------------------------------------------------------------------------------------
+Vanilla (single)              0.689±0.008     0.547±0.009***  0.408±0.011***  0.272±0.010***
+Avg-Ensemble                  0.673±0.008     0.672±0.008     0.646±0.008***  0.049±0.004***
+Majority Vote                 0.673±0.008     0.681±0.008     0.658±0.009*    0.038±0.003***
+EntropyTrust                  0.669±0.008***  0.557±0.007***  0.526±0.008***  0.485±0.008***
+CTC-Global                    0.672±0.007     0.672±0.008     0.663±0.008     0.534±0.011   
+CTC-Focal                     0.688±0.008     0.675±0.007     0.663±0.007     0.646±0.006   
+CTC-Agreement                 0.672±0.007     0.672±0.008     0.662±0.008*    0.487±0.014***
+CTC-Calibrated                0.676±0.007     0.673±0.008     0.676±0.008     0.543±0.010   
+CTC-Hybrid (ours)             0.670±0.008*    0.570±0.007***  0.540±0.007***  0.510±0.008** 
+----------------------------------------------------------------------------------------
+CTC Coverage (clean)          0.904        0.904        0.905        0.905      
+CTC Mean Set Size             2.21         2.21         2.21         2.21       
+========================================================================================
+* p<0.05  ** p<0.01  *** p<0.001  (Wilcoxon CTC-Global > baseline)
+
+========================================================================================
+Task: MMLU  |  Model: Qwen3-30B-A3B-Instruct-2507  |  α=0.1  |  N=5  |  overconfident attack
+========================================================================================
+Method                        k=0           k=1           k=2           k=3         
+----------------------------------------------------------------------------------------
+Vanilla (single)              0.743±0.002***  0.593±0.004***  0.444±0.005***  0.297±0.004   
+Avg-Ensemble                  0.748±0.002     0.749±0.002     0.722±0.002     0.164±0.003   
+Majority Vote                 0.749±0.002     0.749±0.002     0.728±0.002     0.098±0.002***
+EntropyTrust                  0.751±0.002     0.619±0.002***  0.591±0.002     0.563±0.003   
+CTC-Global                    0.748±0.002     0.725±0.002     0.567±0.004     0.158±0.003   
+CTC-Focal                     0.746±0.002***  0.459±0.004***  0.335±0.004***  0.221±0.003   
+CTC-Agreement                 0.749±0.002     0.749±0.002     0.681±0.002     0.158±0.003   
+CTC-Calibrated                0.749±0.002     0.733±0.002     0.577±0.005     0.082±0.002***
+CTC-Hybrid (ours)             0.750±0.002     0.602±0.002***  0.583±0.002     0.560±0.002   
+----------------------------------------------------------------------------------------
+CTC Coverage (clean)          0.899        0.900        0.900        0.899      
+CTC Mean Set Size             1.59         1.59         1.59         1.59       
+========================================================================================
+* p<0.05  ** p<0.01  *** p<0.001  (Wilcoxon CTC-Global > baseline)
+
+========================================================================================
+Task: TRUTHFULQA  |  Model: Qwen3-30B-A3B-Instruct-2507  |  α=0.1  |  N=5  |  overconfident attack
+========================================================================================
+Method                        k=0           k=1           k=2           k=3         
+----------------------------------------------------------------------------------------
+Vanilla (single)              0.748±0.006***  0.597±0.010***  0.444±0.010***  0.296±0.010***
+Avg-Ensemble                  0.768±0.006*    0.766±0.007     0.750±0.006     0.171±0.007***
+Majority Vote                 0.771±0.006     0.763±0.007     0.748±0.007     0.108±0.007***
+EntropyTrust                  0.764±0.007**   0.664±0.006***  0.634±0.006***  0.605±0.008   
+CTC-Global                    0.769±0.006     0.759±0.009     0.723±0.032     0.561±0.107   
+CTC-Focal                     0.754±0.007***  0.688±0.054***  0.654±0.079***  0.621±0.103   
+CTC-Agreement                 0.767±0.006**   0.765±0.007     0.744±0.016     0.528±0.099***
+CTC-Calibrated                0.768±0.006     0.760±0.009     0.728±0.030     0.546±0.122   
+CTC-Hybrid (ours)             0.766±0.006**   0.672±0.010***  0.644±0.009***  0.614±0.009   
+----------------------------------------------------------------------------------------
+CTC Coverage (clean)          0.897        0.897        0.896        0.895      
+CTC Mean Set Size             1.70         1.70         1.70         1.69       
+========================================================================================
+* p<0.05  ** p<0.01  *** p<0.001  (Wilcoxon CTC-Global > baseline)
+
+========================================================================================
+Task: ARC  |  Model: Qwen3-30B-A3B-Instruct-2507  |  α=0.1  |  N=5  |  overconfident attack
+========================================================================================
+Method                        k=0           k=1           k=2           k=3         
+----------------------------------------------------------------------------------------
+Vanilla (single)              0.941±0.003     0.749±0.010***  0.561±0.013***  0.375±0.010   
+Avg-Ensemble                  0.937±0.004     0.935±0.004     0.929±0.004     0.285±0.007   
+Majority Vote                 0.935±0.004***  0.936±0.004     0.928±0.005     0.150±0.009***
+EntropyTrust                  0.934±0.004***  0.901±0.005***  0.890±0.005***  0.880±0.005   
+CTC-Global                    0.937±0.004     0.935±0.004     0.924±0.004     0.284±0.007   
+CTC-Focal                     0.935±0.004***  0.746±0.010***  0.559±0.014***  0.375±0.010   
+CTC-Agreement                 0.937±0.004     0.935±0.004     0.924±0.004     0.284±0.007   
+CTC-Calibrated                0.937±0.004     0.936±0.004     0.914±0.011*    0.157±0.009***
+CTC-Hybrid (ours)             0.934±0.004***  0.900±0.005***  0.890±0.005***  0.880±0.005   
+----------------------------------------------------------------------------------------
+CTC Coverage (clean)          0.934        0.934        0.934        0.933      
+CTC Mean Set Size             1.00         1.00         1.00         1.00       
+========================================================================================
+* p<0.05  ** p<0.01  *** p<0.001  (Wilcoxon CTC-Global > baseline)
+
+========================================================================================
+Task: MMLU  |  Model: Phi-3.5-mini-instruct  |  α=0.1  |  N=5  |  overconfident attack
+========================================================================================
+Method                        k=0           k=1           k=2           k=3         
+----------------------------------------------------------------------------------------
+Vanilla (single)              0.666±0.002     0.530±0.004***  0.398±0.004***  0.266±0.004***
+Avg-Ensemble                  0.665±0.002     0.665±0.002     0.648±0.002***  0.069±0.002***
+Majority Vote                 0.666±0.002     0.665±0.002     0.657±0.002     0.042±0.001***
+EntropyTrust                  0.666±0.002     0.527±0.002***  0.507±0.002***  0.489±0.003***
+CTC-Global                    0.664±0.002     0.665±0.002     0.656±0.002     0.506±0.005   
+CTC-Focal                     0.666±0.002     0.653±0.003***  0.639±0.002***  0.622±0.003   
+CTC-Agreement                 0.664±0.002     0.665±0.002     0.656±0.002**   0.477±0.006***
+CTC-Calibrated                0.664±0.002***  0.664±0.002*    0.664±0.002     0.514±0.005   
+CTC-Hybrid (ours)             0.666±0.002     0.535±0.002***  0.513±0.003***  0.496±0.003***
+----------------------------------------------------------------------------------------
+CTC Coverage (clean)          0.900        0.900        0.900        0.900      
+CTC Mean Set Size             2.16         2.16         2.16         2.16       
+========================================================================================
+* p<0.05  ** p<0.01  *** p<0.001  (Wilcoxon CTC-Global > baseline)
+
+========================================================================================
+Task: TRUTHFULQA  |  Model: Phi-3.5-mini-instruct  |  α=0.1  |  N=5  |  overconfident attack
+========================================================================================
+Method                        k=0           k=1           k=2           k=3         
+----------------------------------------------------------------------------------------
+Vanilla (single)              0.630±0.005***  0.502±0.008***  0.376±0.009***  0.252±0.010***
+Avg-Ensemble                  0.634±0.005***  0.638±0.005     0.621±0.005***  0.125±0.006***
+Majority Vote                 0.638±0.005     0.632±0.005***  0.623±0.005**   0.071±0.004***
+EntropyTrust                  0.636±0.005     0.555±0.005***  0.529±0.005***  0.501±0.006   
+CTC-Global                    0.637±0.004     0.637±0.005     0.627±0.005     0.453±0.011   
+CTC-Focal                     0.632±0.005***  0.613±0.005***  0.593±0.006***  0.569±0.005   
+CTC-Agreement                 0.636±0.005*    0.637±0.005     0.625±0.005***  0.412±0.011***
+CTC-Calibrated                0.636±0.005*    0.637±0.005     0.633±0.005     0.457±0.010   
+CTC-Hybrid (ours)             0.636±0.005     0.559±0.005***  0.538±0.005***  0.505±0.006   
+----------------------------------------------------------------------------------------
+CTC Coverage (clean)          0.899        0.899        0.900        0.900      
+CTC Mean Set Size             2.53         2.53         2.53         2.53       
+========================================================================================
+* p<0.05  ** p<0.01  *** p<0.001  (Wilcoxon CTC-Global > baseline)
+
+========================================================================================
+Task: ARC  |  Model: Phi-3.5-mini-instruct  |  α=0.1  |  N=5  |  overconfident attack
+========================================================================================
+Method                        k=0           k=1           k=2           k=3         
+----------------------------------------------------------------------------------------
+Vanilla (single)              0.836±0.006***  0.668±0.010***  0.499±0.012***  0.332±0.009   
+Avg-Ensemble                  0.841±0.006     0.841±0.006     0.830±0.005     0.173±0.005   
+Majority Vote                 0.840±0.006**   0.839±0.006     0.833±0.005     0.090±0.005***
+EntropyTrust                  0.840±0.006**   0.744±0.006***  0.723±0.006***  0.709±0.006   
+CTC-Global                    0.841±0.006     0.837±0.005     0.760±0.009     0.171±0.005   
+CTC-Focal                     0.838±0.006***  0.613±0.010***  0.456±0.011***  0.304±0.007   
+CTC-Agreement                 0.841±0.006     0.841±0.006     0.813±0.005     0.171±0.005   
+CTC-Calibrated                0.841±0.006     0.840±0.006     0.766±0.010     0.087±0.005***
+CTC-Hybrid (ours)             0.840±0.006**   0.743±0.006***  0.723±0.006***  0.709±0.006   
+----------------------------------------------------------------------------------------
+CTC Coverage (clean)          0.900        0.900        0.900        0.900      
+CTC Mean Set Size             1.21         1.21         1.21         1.21       
+========================================================================================
+* p<0.05  ** p<0.01  *** p<0.001  (Wilcoxon CTC-Global > baseline)
+
+Attack ablation (MMLU, Qwen2.5-7B-Instruct, α=0.1)
+Attack                k     vanilla        average        majority       entropy        ctc          
+coordinated_extreme   0     0.675±0.003  0.679±0.002  0.679±0.002  0.676±0.002  0.678±0.002
+coordinated_extreme   1     0.538±0.004  0.669±0.003  0.674±0.003  0.530±0.002  0.671±0.002
+coordinated_extreme   2     0.403±0.005  0.640±0.002  0.651±0.003  0.504±0.002  0.655±0.002
+coordinated_extreme   3     0.269±0.004  0.000±0.000  0.000±0.000  0.480±0.003  0.548±0.004
+
+inject_deceptive      0     0.675±0.003  0.679±0.002  0.679±0.002  0.676±0.002  0.678±0.002
+inject_deceptive      1     0.578±0.004  0.677±0.002  0.679±0.003  0.619±0.002  0.672±0.003
+inject_deceptive      2     0.482±0.005  0.668±0.002  0.669±0.003  0.605±0.002  0.635±0.002
+inject_deceptive      3     0.389±0.004  0.238±0.002  0.199±0.002  0.593±0.002  0.510±0.005
+
+inject_sycophant      0     0.675±0.003  0.679±0.002  0.679±0.002  0.676±0.002  0.678±0.002
+inject_sycophant      1     0.639±0.003  0.676±0.002  0.677±0.003  0.629±0.002  0.664±0.002
+inject_sycophant      2     0.606±0.003  0.670±0.002  0.671±0.003  0.620±0.002  0.634±0.003
+inject_sycophant      3     0.572±0.003  0.527±0.002  0.504±0.002  0.614±0.002  0.591±0.002
+
+overconfident         0     0.675±0.003  0.679±0.002  0.679±0.002  0.676±0.002  0.678±0.002
+overconfident         1     0.538±0.004  0.677±0.002  0.677±0.003  0.658±0.003  0.677±0.002
+overconfident         2     0.403±0.005  0.657±0.003  0.661±0.003  0.634±0.002  0.669±0.003
+overconfident         3     0.269±0.004  0.118±0.002  0.065±0.002  0.610±0.002  0.570±0.003
+
+overconfident_extreme 0     0.675±0.003  0.679±0.002  0.679±0.002  0.676±0.002  0.678±0.002
+overconfident_extreme 1     0.538±0.004  0.677±0.002  0.677±0.003  0.530±0.002  0.677±0.002
+overconfident_extreme 2     0.403±0.005  0.653±0.003  0.661±0.003  0.505±0.002  0.668±0.002
+overconfident_extreme 3     0.269±0.004  0.098±0.002  0.065±0.002  0.482±0.003  0.562±0.004
+
+random                0     0.675±0.003  0.679±0.002  0.679±0.002  0.676±0.002  0.678±0.002
+random                1     0.584±0.004  0.677±0.002  0.679±0.003  0.676±0.003  0.677±0.002
+random                2     0.496±0.005  0.676±0.003  0.670±0.002  0.676±0.003  0.676±0.003
+random                3     0.407±0.005  0.676±0.003  0.230±0.003  0.676±0.002  0.676±0.003
+
+subtle                0     0.675±0.003  0.679±0.002  0.679±0.002  0.676±0.002  0.678±0.002
+subtle                1     0.552±0.004  0.677±0.003  0.678±0.003  0.676±0.003  0.676±0.002
+subtle                2     0.432±0.005  0.676±0.003  0.665±0.003  0.675±0.003  0.676±0.002
+subtle                3     0.313±0.004  0.674±0.003  0.128±0.002  0.675±0.002  0.675±0.002
+
+
+Alpha ablation (MMLU, Qwen2.5-7B-Instruct, overconfident)
+α       k     CTC-acc       Coverage      Mean |C|
+0.05    0     0.678±0.002  0.949±0.003  2.44
+0.05    1     0.677±0.002  0.949±0.003  2.44
+0.05    2     0.663±0.003  0.949±0.003  2.44
+0.05    3     0.503±0.004  0.949±0.003  2.44
+
+0.10    0     0.678±0.002  0.899±0.004  1.99
+0.10    1     0.677±0.002  0.899±0.004  1.99
+0.10    2     0.669±0.003  0.899±0.004  1.99
+0.10    3     0.570±0.003  0.899±0.004  1.99
+
+0.20    0     0.679±0.002  0.798±0.006  1.42
+0.20    1     0.677±0.002  0.798±0.006  1.42
+0.20    2     0.674±0.003  0.798±0.006  1.42
+0.20    3     0.638±0.002  0.797±0.006  1.42
+
+
+Attack ablation (TRUTHFULQA, Qwen2.5-7B-Instruct, α=0.1)
+Attack                k     vanilla        average        majority       entropy        ctc          
+coordinated_extreme   0     0.699±0.005  0.717±0.006  0.704±0.005  0.718±0.006  0.717±0.006
+coordinated_extreme   1     0.557±0.009  0.704±0.005  0.695±0.005  0.591±0.006  0.708±0.005
+coordinated_extreme   2     0.415±0.010  0.671±0.005  0.678±0.006  0.569±0.006  0.683±0.005
+coordinated_extreme   3     0.279±0.009  0.000±0.000  0.000±0.000  0.545±0.007  0.557±0.012
+
+inject_deceptive      0     0.699±0.005  0.717±0.006  0.704±0.005  0.718±0.006  0.717±0.006
+inject_deceptive      1     0.608±0.010  0.723±0.006  0.716±0.005  0.709±0.006  0.734±0.007
+inject_deceptive      2     0.517±0.010  0.725±0.006  0.724±0.005  0.687±0.006  0.710±0.006
+inject_deceptive      3     0.434±0.009  0.291±0.005  0.260±0.005  0.674±0.007  0.594±0.006
+
+inject_sycophant      0     0.699±0.005  0.717±0.006  0.704±0.005  0.718±0.006  0.717±0.006
+inject_sycophant      1     0.628±0.008  0.712±0.005  0.700±0.005  0.574±0.007  0.699±0.005
+inject_sycophant      2     0.560±0.009  0.699±0.006  0.699±0.006  0.554±0.007  0.616±0.007
+inject_sycophant      3     0.487±0.009  0.367±0.007  0.349±0.006  0.537±0.008  0.486±0.007
+
+overconfident         0     0.699±0.005  0.717±0.006  0.704±0.005  0.718±0.006  0.717±0.006
+overconfident         1     0.557±0.009  0.713±0.005  0.701±0.005  0.708±0.006  0.714±0.005
+overconfident         2     0.415±0.010  0.690±0.005  0.688±0.006  0.690±0.005  0.700±0.005
+overconfident         3     0.279±0.009  0.157±0.005  0.084±0.005  0.663±0.006  0.580±0.010
+
+overconfident_extreme 0     0.699±0.005  0.717±0.006  0.704±0.005  0.718±0.006  0.717±0.006
+overconfident_extreme 1     0.557±0.009  0.713±0.005  0.701±0.005  0.591±0.006  0.714±0.005
+overconfident_extreme 2     0.415±0.010  0.684±0.005  0.688±0.006  0.571±0.007  0.698±0.005
+overconfident_extreme 3     0.279±0.009  0.139±0.005  0.084±0.005  0.547±0.007  0.569±0.011
+
+random                0     0.699±0.005  0.717±0.006  0.704±0.005  0.718±0.006  0.717±0.006
+random                1     0.607±0.008  0.713±0.005  0.701±0.005  0.716±0.006  0.714±0.005
+random                2     0.518±0.009  0.712±0.006  0.699±0.006  0.715±0.006  0.712±0.006
+random                3     0.429±0.011  0.715±0.006  0.248±0.006  0.715±0.006  0.715±0.006
+
+subtle                0     0.699±0.005  0.717±0.006  0.704±0.005  0.718±0.006  0.717±0.006
+subtle                1     0.577±0.009  0.715±0.005  0.702±0.005  0.716±0.006  0.715±0.006
+subtle                2     0.452±0.011  0.710±0.006  0.696±0.006  0.714±0.006  0.709±0.006
+subtle                3     0.334±0.012  0.715±0.008  0.154±0.007  0.714±0.007  0.713±0.007
+
+
+Alpha ablation (TRUTHFULQA, Qwen2.5-7B-Instruct, overconfident)
+α       k     CTC-acc       Coverage      Mean |C|
+0.05    0     0.716±0.006  0.950±0.008  2.70
+0.05    1     0.714±0.005  0.950±0.008  2.70
+0.05    2     0.692±0.005  0.950±0.008  2.70
+0.05    3     0.471±0.016  0.950±0.008  2.69
+
+0.10    0     0.717±0.006  0.902±0.011  2.08
+0.10    1     0.714±0.005  0.902±0.011  2.08
+0.10    2     0.700±0.005  0.902±0.010  2.08
+0.10    3     0.580±0.010  0.902±0.010  2.08
+
+0.20    0     0.719±0.006  0.801±0.017  1.36
+0.20    1     0.713±0.006  0.802±0.017  1.36
+0.20    2     0.698±0.014  0.802±0.017  1.36
+0.20    3     0.567±0.097  0.802±0.018  1.36
+
+
+Attack ablation (ARC, Qwen2.5-7B-Instruct, α=0.1)
+Attack                k     vanilla        average        majority       entropy        ctc          
+coordinated_extreme   0     0.892±0.004  0.888±0.005  0.886±0.005  0.890±0.005  0.888±0.005
+coordinated_extreme   1     0.711±0.009  0.886±0.005  0.886±0.005  0.824±0.007  0.885±0.005
+coordinated_extreme   2     0.533±0.013  0.875±0.005  0.877±0.005  0.806±0.007  0.864±0.003
+coordinated_extreme   3     0.355±0.011  0.000±0.000  0.000±0.000  0.786±0.007  0.000±0.000
+
+inject_deceptive      0     0.892±0.004  0.888±0.005  0.886±0.005  0.890±0.005  0.888±0.005
+inject_deceptive      1     0.731±0.010  0.889±0.005  0.888±0.005  0.836±0.006  0.891±0.006
+inject_deceptive      2     0.572±0.012  0.888±0.005  0.886±0.005  0.813±0.005  0.877±0.003
+inject_deceptive      3     0.415±0.010  0.157±0.005  0.103±0.004  0.800±0.005  0.233±0.036
+
+inject_sycophant      0     0.892±0.004  0.888±0.005  0.886±0.005  0.890±0.005  0.888±0.005
+inject_sycophant      1     0.850±0.005  0.888±0.005  0.888±0.005  0.834±0.006  0.887±0.005
+inject_sycophant      2     0.811±0.006  0.884±0.006  0.885±0.005  0.825±0.006  0.878±0.004
+inject_sycophant      3     0.770±0.007  0.726±0.006  0.693±0.006  0.820±0.006  0.739±0.016
+
+overconfident         0     0.892±0.004  0.888±0.005  0.886±0.005  0.890±0.005  0.888±0.005
+overconfident         1     0.711±0.009  0.889±0.005  0.889±0.005  0.884±0.005  0.889±0.005
+overconfident         2     0.533±0.013  0.882±0.005  0.881±0.005  0.875±0.005  0.874±0.005
+overconfident         3     0.355±0.011  0.187±0.004  0.095±0.005  0.865±0.005  0.223±0.071
+
+overconfident_extreme 0     0.892±0.004  0.888±0.005  0.886±0.005  0.890±0.005  0.888±0.005
+overconfident_extreme 1     0.711±0.009  0.889±0.005  0.889±0.005  0.824±0.007  0.888±0.005
+overconfident_extreme 2     0.533±0.013  0.879±0.005  0.881±0.005  0.808±0.007  0.866±0.003
+overconfident_extreme 3     0.355±0.011  0.170±0.005  0.095±0.005  0.787±0.007  0.169±0.005
+
+random                0     0.892±0.004  0.888±0.005  0.886±0.005  0.890±0.005  0.888±0.005
+random                1     0.756±0.008  0.889±0.005  0.887±0.005  0.889±0.005  0.889±0.005
+random                2     0.621±0.011  0.889±0.005  0.882±0.005  0.888±0.005  0.889±0.005
+random                3     0.479±0.010  0.888±0.005  0.207±0.006  0.888±0.004  0.887±0.005
+
+subtle                0     0.892±0.004  0.888±0.005  0.886±0.005  0.890±0.005  0.888±0.005
+subtle                1     0.714±0.009  0.890±0.005  0.890±0.005  0.889±0.005  0.890±0.005
+subtle                2     0.539±0.013  0.889±0.005  0.884±0.005  0.889±0.005  0.889±0.005
+subtle                3     0.363±0.011  0.889±0.005  0.059±0.004  0.888±0.004  0.887±0.006
+
+
+Alpha ablation (ARC, Qwen2.5-7B-Instruct, overconfident)
+α       k     CTC-acc       Coverage      Mean |C|
+0.05    0     0.888±0.005  0.954±0.009  1.40
+0.05    1     0.889±0.005  0.954±0.010  1.40
+0.05    2     0.886±0.006  0.954±0.009  1.40
+0.05    3     0.806±0.063  0.954±0.009  1.40
+
+0.10    0     0.888±0.005  0.905±0.010  1.04
+0.10    1     0.889±0.005  0.905±0.010  1.04
+0.10    2     0.874±0.005  0.905±0.010  1.04
+0.10    3     0.223±0.071  0.905±0.010  1.04
+
+0.20    0     0.888±0.005  0.888±0.005  1.00
+0.20    1     0.889±0.005  0.888±0.005  1.00
+0.20    2     0.878±0.005  0.888±0.005  1.00
+0.20    3     0.187±0.004  0.888±0.005  1.00
+
+
+Scaling N=10 (Qwen2.5-7B-Instruct, MMLU, overconfident, α=0.10)
+k    frac       vanilla        majority       entropy        ctc          
+0    0.00     0.675±0.003  0.679±0.002  0.676±0.002  0.678±0.002
+2    0.20     0.537±0.005  0.678±0.003  0.532±0.003  0.678±0.003
+4    0.40     0.403±0.003  0.662±0.003  0.506±0.003  0.669±0.002
+6    0.60     0.269±0.003  0.064±0.002  0.486±0.002  0.561±0.003
+Saved results/table_Qwen_Qwen2.5-7B-Instruct.tex
+Saved results/table_mistralai_Mistral-7B-Instruct-v0.3.tex
+Saved results/table_Qwen_Qwen3-30B-A3B-Instruct-2507.tex
+Saved results/table_microsoft_Phi-3.5-mini-instruct.tex
+Saved results/table_crossmodel.tex
+
+========================================
+PHASE 4: FIGURES
+========================================
+Generating figures…
+  Saved results/fig_coverage_mmlu.pdf
+  Saved results/fig_attack_ablation_mmlu.pdf
+  Saved results/fig_alpha_coverage_mmlu.pdf
+  Saved results/fig_coverage_truthfulqa.pdf
+  Saved results/fig_attack_ablation_truthfulqa.pdf
+  Saved results/fig_alpha_coverage_truthfulqa.pdf
+  Saved results/fig_coverage_arc.pdf
+  Saved results/fig_attack_ablation_arc.pdf
+  Saved results/fig_alpha_coverage_arc.pdf
+Done.
+
+========================================
+PHASE 5: SELECTIVE PREDICTION
+========================================
+Loaded 6400 records from results/raw_results.json
+(no data)
+(no data)
+
+Generating risk-coverage plots…
+  Saved results/fig_risk_coverage_mmlu_Qwen2_5_7B_Instruct_k1_overconfident.pdf
+  Saved results/fig_risk_coverage_mmlu_Qwen2_5_7B_Instruct_k2_overconfident.pdf
+  Saved results/fig_risk_coverage_mmlu_Qwen2_5_7B_Instruct_k3_overconfident.pdf
+  Saved results/fig_risk_coverage_truthfulqa_Qwen2_5_7B_Instruct_k1_overconfident.pdf
+  Saved results/fig_risk_coverage_truthfulqa_Qwen2_5_7B_Instruct_k2_overconfident.pdf
+  Saved results/fig_risk_coverage_truthfulqa_Qwen2_5_7B_Instruct_k3_overconfident.pdf
+  Saved results/fig_risk_coverage_arc_Qwen2_5_7B_Instruct_k1_overconfident.pdf
+  Saved results/fig_risk_coverage_arc_Qwen2_5_7B_Instruct_k2_overconfident.pdf
+  Saved results/fig_risk_coverage_arc_Qwen2_5_7B_Instruct_k3_overconfident.pdf
+Loaded 6400 records from results/raw_results.json
+
+============================================================================================================
+SELECTIVE ACCURACY @ 80% COVERAGE  |  k=3 corrupt / 5  |  α=0.1  |  attack=overconfident_extreme
+============================================================================================================
+Model                       Task            majority        entropy         ctc             ctc_hybrid      committee     
+------------------------------------------------------------------------------------------------------------
+Qwen2.5-7B-Instruct         mmlu            0.000          0.548          0.638          0.564          0.564        
+Qwen2.5-7B-Instruct         truthfulqa      0.013          0.613          0.645          0.632          0.632        
+Qwen2.5-7B-Instruct         arc             0.014          0.864          0.000          0.864          0.848        
+Qwen3-30B-A3B-Instruct-2507 mmlu            0.026          0.640          0.000          0.628          0.677        
+Qwen3-30B-A3B-Instruct-2507 truthfulqa      0.038          0.685          0.600          0.702          0.703        
+Qwen3-30B-A3B-Instruct-2507 arc             0.072          0.967          0.127          0.966          0.901        
+Phi-3.5-mini-instruct       mmlu            0.000          0.542          0.584          0.554          0.554        
+Phi-3.5-mini-instruct       truthfulqa      0.000          0.571          0.490          0.579          0.579        
+Phi-3.5-mini-instruct       arc             0.008          0.791          0.000          0.786          0.842        
+Mistral-7B-Instruct-v0.3    mmlu            0.000          0.313          0.409          0.331          0.331        
+Mistral-7B-Instruct-v0.3    truthfulqa      0.000          0.492          0.377          0.503          0.503        
+Mistral-7B-Instruct-v0.3    arc             0.000          0.545          0.595          0.565          0.565        
+============================================================================================================
+
+============================================================================================================
+AURC (Area Under Risk-Coverage)  |  k=3  |  α=0.1  |  attack=overconfident_extreme
+(lower is better — integrates 1 - selective_accuracy over all coverage levels)
+============================================================================================================
+Model                       Task            majority     entropy      ctc          ctc_hybrid   committee  
+------------------------------------------------------------------------------------------------------------
+Qwen2.5-7B-Instruct         mmlu            0.9438      0.2662      0.1757      0.2323      0.2323    
+Qwen2.5-7B-Instruct         truthfulqa      0.9401      0.2407      0.1730      0.2041      0.2041    
+Qwen2.5-7B-Instruct         arc             0.9390      0.0552      0.9327      0.0570      0.0736    
+Qwen3-30B-A3B-Instruct-2507 mmlu            0.9371      0.1796      0.9355      0.1920      0.1565    
+Qwen3-30B-A3B-Instruct-2507 truthfulqa      0.9342      0.1603      0.3287      0.1469      0.1992    
+Qwen3-30B-A3B-Instruct-2507 arc             0.9236      0.0150      0.9023      0.0153      0.0450    
+Phi-3.5-mini-instruct       mmlu            0.9475      0.2693      0.2554      0.2562      0.2562    
+Phi-3.5-mini-instruct       truthfulqa      0.9433      0.2425      0.3125      0.2371      0.2371    
+Phi-3.5-mini-instruct       arc             0.9402      0.0851      0.9331      0.0888      0.0911    
+Mistral-7B-Instruct-v0.3    mmlu            0.9476      0.6238      0.4212      0.5364      0.5364    
+Mistral-7B-Instruct-v0.3    truthfulqa      0.9445      0.4329      0.4386      0.3783      0.3783    
+Mistral-7B-Instruct-v0.3    arc             0.9475      0.4019      0.2602      0.3201      0.3201    
+============================================================================================================
+
+Generating risk-coverage plots…
+  Saved results/fig_risk_coverage_mmlu_Qwen2_5_7B_Instruct_k1_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_mmlu_Qwen2_5_7B_Instruct_k2_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_mmlu_Qwen2_5_7B_Instruct_k3_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_truthfulqa_Qwen2_5_7B_Instruct_k1_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_truthfulqa_Qwen2_5_7B_Instruct_k2_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_truthfulqa_Qwen2_5_7B_Instruct_k3_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_arc_Qwen2_5_7B_Instruct_k1_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_arc_Qwen2_5_7B_Instruct_k2_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_arc_Qwen2_5_7B_Instruct_k3_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_mmlu_Qwen3_30B_A3B_Instruct_2507_k1_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_mmlu_Qwen3_30B_A3B_Instruct_2507_k2_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_mmlu_Qwen3_30B_A3B_Instruct_2507_k3_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_truthfulqa_Qwen3_30B_A3B_Instruct_2507_k1_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_truthfulqa_Qwen3_30B_A3B_Instruct_2507_k2_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_truthfulqa_Qwen3_30B_A3B_Instruct_2507_k3_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_arc_Qwen3_30B_A3B_Instruct_2507_k1_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_arc_Qwen3_30B_A3B_Instruct_2507_k2_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_arc_Qwen3_30B_A3B_Instruct_2507_k3_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_mmlu_domain:Qwen2_5_7B_Instruct_k1_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_mmlu_domain:Qwen2_5_7B_Instruct_k2_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_mmlu_domain:Qwen2_5_7B_Instruct_k3_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_mmlu_hetero_committee:Qwen2_5_7B_Instruct,Mistral_7B_Instruct_v0_3,Phi_3_5_mini_instruct,Qwen3_30B_A3B_Instruct_2507,Olmo_3_7B_Instruct_k1_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_mmlu_hetero_committee:Qwen2_5_7B_Instruct,Mistral_7B_Instruct_v0_3,Phi_3_5_mini_instruct,Qwen3_30B_A3B_Instruct_2507,Olmo_3_7B_Instruct_k2_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_mmlu_hetero_committee:Qwen2_5_7B_Instruct,Mistral_7B_Instruct_v0_3,Phi_3_5_mini_instruct,Qwen3_30B_A3B_Instruct_2507,Olmo_3_7B_Instruct_k3_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_truthfulqa_hetero_committee:Qwen2_5_7B_Instruct,Mistral_7B_Instruct_v0_3,Phi_3_5_mini_instruct,Qwen3_30B_A3B_Instruct_2507,Olmo_3_7B_Instruct_k1_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_truthfulqa_hetero_committee:Qwen2_5_7B_Instruct,Mistral_7B_Instruct_v0_3,Phi_3_5_mini_instruct,Qwen3_30B_A3B_Instruct_2507,Olmo_3_7B_Instruct_k2_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_truthfulqa_hetero_committee:Qwen2_5_7B_Instruct,Mistral_7B_Instruct_v0_3,Phi_3_5_mini_instruct,Qwen3_30B_A3B_Instruct_2507,Olmo_3_7B_Instruct_k3_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_arc_hetero_committee:Qwen2_5_7B_Instruct,Mistral_7B_Instruct_v0_3,Phi_3_5_mini_instruct,Qwen3_30B_A3B_Instruct_2507,Olmo_3_7B_Instruct_k1_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_arc_hetero_committee:Qwen2_5_7B_Instruct,Mistral_7B_Instruct_v0_3,Phi_3_5_mini_instruct,Qwen3_30B_A3B_Instruct_2507,Olmo_3_7B_Instruct_k2_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_arc_hetero_committee:Qwen2_5_7B_Instruct,Mistral_7B_Instruct_v0_3,Phi_3_5_mini_instruct,Qwen3_30B_A3B_Instruct_2507,Olmo_3_7B_Instruct_k3_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_mmlu_Phi_3_5_mini_instruct_k1_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_mmlu_Phi_3_5_mini_instruct_k2_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_mmlu_Phi_3_5_mini_instruct_k3_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_truthfulqa_Phi_3_5_mini_instruct_k1_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_truthfulqa_Phi_3_5_mini_instruct_k2_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_truthfulqa_Phi_3_5_mini_instruct_k3_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_arc_Phi_3_5_mini_instruct_k1_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_arc_Phi_3_5_mini_instruct_k2_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_arc_Phi_3_5_mini_instruct_k3_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_mmlu_Mistral_7B_Instruct_v0_3_k1_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_mmlu_Mistral_7B_Instruct_v0_3_k2_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_mmlu_Mistral_7B_Instruct_v0_3_k3_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_truthfulqa_Mistral_7B_Instruct_v0_3_k1_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_truthfulqa_Mistral_7B_Instruct_v0_3_k2_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_truthfulqa_Mistral_7B_Instruct_v0_3_k3_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_arc_Mistral_7B_Instruct_v0_3_k1_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_arc_Mistral_7B_Instruct_v0_3_k2_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_arc_Mistral_7B_Instruct_v0_3_k3_overconfident_extreme.pdf
+Loaded 6400 records from results/raw_results.json
+(no data)
+(no data)
+
+Generating risk-coverage plots…
+  Saved results/fig_risk_coverage_mmlu_Qwen2_5_7B_Instruct_k1_coordinated_extreme.pdf
+  Saved results/fig_risk_coverage_mmlu_Qwen2_5_7B_Instruct_k2_coordinated_extreme.pdf
+  Saved results/fig_risk_coverage_mmlu_Qwen2_5_7B_Instruct_k3_coordinated_extreme.pdf
+  Saved results/fig_risk_coverage_truthfulqa_Qwen2_5_7B_Instruct_k1_coordinated_extreme.pdf
+  Saved results/fig_risk_coverage_truthfulqa_Qwen2_5_7B_Instruct_k2_coordinated_extreme.pdf
+  Saved results/fig_risk_coverage_truthfulqa_Qwen2_5_7B_Instruct_k3_coordinated_extreme.pdf
+  Saved results/fig_risk_coverage_arc_Qwen2_5_7B_Instruct_k1_coordinated_extreme.pdf
+  Saved results/fig_risk_coverage_arc_Qwen2_5_7B_Instruct_k2_coordinated_extreme.pdf
+  Saved results/fig_risk_coverage_arc_Qwen2_5_7B_Instruct_k3_coordinated_extreme.pdf
+Loaded 6400 records from results/raw_results.json
+(no data)
+(no data)
+
+Generating risk-coverage plots…
+  Saved results/fig_risk_coverage_mmlu_Qwen2_5_7B_Instruct_k1_inject_sycophant.pdf
+  Saved results/fig_risk_coverage_mmlu_Qwen2_5_7B_Instruct_k2_inject_sycophant.pdf
+  Saved results/fig_risk_coverage_mmlu_Qwen2_5_7B_Instruct_k3_inject_sycophant.pdf
+  Saved results/fig_risk_coverage_truthfulqa_Qwen2_5_7B_Instruct_k1_inject_sycophant.pdf
+  Saved results/fig_risk_coverage_truthfulqa_Qwen2_5_7B_Instruct_k2_inject_sycophant.pdf
+  Saved results/fig_risk_coverage_truthfulqa_Qwen2_5_7B_Instruct_k3_inject_sycophant.pdf
+  Saved results/fig_risk_coverage_arc_Qwen2_5_7B_Instruct_k1_inject_sycophant.pdf
+  Saved results/fig_risk_coverage_arc_Qwen2_5_7B_Instruct_k2_inject_sycophant.pdf
+  Saved results/fig_risk_coverage_arc_Qwen2_5_7B_Instruct_k3_inject_sycophant.pdf
+Loaded 6400 records from results/raw_results.json
+(no data)
+(no data)
+
+Generating risk-coverage plots…
+  Saved results/fig_risk_coverage_mmlu_Qwen2_5_7B_Instruct_k1_inject_deceptive.pdf
+  Saved results/fig_risk_coverage_mmlu_Qwen2_5_7B_Instruct_k2_inject_deceptive.pdf
+  Saved results/fig_risk_coverage_mmlu_Qwen2_5_7B_Instruct_k3_inject_deceptive.pdf
+  Saved results/fig_risk_coverage_truthfulqa_Qwen2_5_7B_Instruct_k1_inject_deceptive.pdf
+  Saved results/fig_risk_coverage_truthfulqa_Qwen2_5_7B_Instruct_k2_inject_deceptive.pdf
+  Saved results/fig_risk_coverage_truthfulqa_Qwen2_5_7B_Instruct_k3_inject_deceptive.pdf
+  Saved results/fig_risk_coverage_arc_Qwen2_5_7B_Instruct_k1_inject_deceptive.pdf
+  Saved results/fig_risk_coverage_arc_Qwen2_5_7B_Instruct_k2_inject_deceptive.pdf
+  Saved results/fig_risk_coverage_arc_Qwen2_5_7B_Instruct_k3_inject_deceptive.pdf
+Loaded 6400 records from results/raw_results.json
+(no data)
+(no data)
+
+Generating risk-coverage plots…
+  Saved results/fig_risk_coverage_mmlu_Qwen2_5_7B_Instruct_k1_subtle.pdf
+  Saved results/fig_risk_coverage_mmlu_Qwen2_5_7B_Instruct_k2_subtle.pdf
+  Saved results/fig_risk_coverage_mmlu_Qwen2_5_7B_Instruct_k3_subtle.pdf
+  Saved results/fig_risk_coverage_truthfulqa_Qwen2_5_7B_Instruct_k1_subtle.pdf
+  Saved results/fig_risk_coverage_truthfulqa_Qwen2_5_7B_Instruct_k2_subtle.pdf
+  Saved results/fig_risk_coverage_truthfulqa_Qwen2_5_7B_Instruct_k3_subtle.pdf
+  Saved results/fig_risk_coverage_arc_Qwen2_5_7B_Instruct_k1_subtle.pdf
+  Saved results/fig_risk_coverage_arc_Qwen2_5_7B_Instruct_k2_subtle.pdf
+  Saved results/fig_risk_coverage_arc_Qwen2_5_7B_Instruct_k3_subtle.pdf
+
+========================================
+ALL DONE: Tue Jun  9 10:27:03 AM PDT 2026
+========================================
+Artifacts in results/:
+  raw_results.json            full data (20 seeds × 3 models × 3 tasks)
+  tables.txt                  human-readable summary tables
+  table_crossmodel.tex        ICLR headline LaTeX table
+  table_*.tex                 per-model LaTeX tables
+  fig_crossmodel.pdf          headline figure
+  fig_corruption_sweep_*.pdf  per-(model,task) corruption sweeps
+  fig_coverage_*.pdf          empirical coverage verification
+  fig_scaling.pdf             N=5 vs N=10
+  fig_attack_ablation_*.pdf   attack-type ablation
+  fig_alpha_coverage_*.pdf    α sweep

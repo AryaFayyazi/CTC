@@ -44,6 +44,7 @@ action, leaving correct-answer endorsement to the clean majority.
 
 from __future__ import annotations
 
+import math
 from typing import Dict, List, Optional
 
 import numpy as np
@@ -214,6 +215,172 @@ def ctc_calibrated_answer(
         trust[j] = t_size * t_cal
 
     n_choices = len(next(iter(agent_probs.values())))
+    scores = np.zeros(n_choices, dtype=np.float64)
+    for a in range(n_choices):
+        for j, p in agent_probs.items():
+            if a in conf_sets[j]:
+                scores[a] += float(p[a]) * trust[j]
+
+    if scores.max() == 0:
+        return ctc_answer(agent_probs, q_hat)
+    return int(np.argmax(scores))
+
+
+def ctc_robust_answer(
+    agent_probs: Dict[int, np.ndarray],
+    q_hat: float,
+    per_agent_cal_stats: Optional[Dict[int, tuple]] = None,
+) -> int:
+    """
+    GLOBAL CANDIDATE: scale-normalised calibration-aware CTC.
+
+    Goal: a single trust rule that is robust to the overconfident attack on
+    BOTH peaked-base tasks (ARC/MMLU, where honest agents are very confident)
+    AND flat-base tasks (GSM8K/HellaSwag, where honest agents are diffuse).
+
+    The failure of the two existing trust terms is that each is tied to an
+    ABSOLUTE confidence scale:
+      • 1/(H+ε)  (CTC-Hybrid)  rewards low entropy → fatal when honest agents
+        are flatter than the attacker (free-form).
+      • exp(-|q_test - q_cal|) (CTC-Calibrated) uses an absolute deviation →
+        vanishes when honest agents are already as peaked as the attacker
+        (ARC), because |q_test - q_cal| is then tiny for the attacker too.
+
+    Fix: measure how atypical the agent's test-time nonconformity is RELATIVE
+    TO ITS OWN calibration spread (a per-agent z-score / conformal surprise):
+
+        z_i      = (q_test_i - μ_cal_i) / (σ_cal_i + ε)
+        T_cal_i  = exp(-|z_i|)
+        T_i      = (1/|C_i|) · T_cal_i
+        score(a) = Σ_i π_i(a) · T_i · 1[a ∈ C_i]
+
+    On a peaked base (σ_cal small) even a small absolute deviation by the
+    attacker becomes a large z-score → it is down-weighted.  On a flat base
+    (σ_cal large) the honest agents stay near z≈0 while the attacker's
+    1-max(π)=0.03 sits many σ below μ_cal → again down-weighted.  The signal
+    is therefore scale-free, which is the property a single global method
+    needs.
+
+    `per_agent_cal_stats[j] = (μ_cal_j, σ_cal_j)` — mean and std of the
+    agent's clean-calibration nonconformity scores.  Falls back to CTC-Global
+    when stats are unavailable.
+    """
+    conf_sets: Dict[int, List[int]] = {}
+    trust:     Dict[int, float]     = {}
+
+    for j, p in agent_probs.items():
+        cs           = conformal_set(p, q_hat)
+        conf_sets[j] = cs
+        t_size       = 1.0 / len(cs)
+
+        if per_agent_cal_stats is not None and j in per_agent_cal_stats:
+            mu, sigma = per_agent_cal_stats[j]
+            q_test    = 1.0 - float(np.max(p))
+            z         = (q_test - mu) / (sigma + 1e-8)
+            t_cal     = float(np.exp(-abs(z)))
+        else:
+            t_cal = 1.0
+
+        trust[j] = t_size * t_cal
+
+    n_choices = len(next(iter(agent_probs.values())))
+    scores = np.zeros(n_choices, dtype=np.float64)
+    for a in range(n_choices):
+        for j, p in agent_probs.items():
+            if a in conf_sets[j]:
+                scores[a] += float(p[a]) * trust[j]
+
+    if scores.max() == 0:
+        return ctc_answer(agent_probs, q_hat)
+    return int(np.argmax(scores))
+
+
+def _entropy_np(p: np.ndarray) -> float:
+    pc = np.clip(p, 1e-12, None)
+    return float(-np.sum(pc * np.log(pc)))
+
+
+def ctc_adaptive_answer(
+    agent_probs: Dict[int, np.ndarray],
+    q_hat: float,
+    per_agent_profile: Optional[Dict[int, dict]] = None,
+    beta: Optional[float] = None,
+    tau_frac: float = 0.15,
+) -> int:
+    """
+    UNIFIED / ADAPTIVE CTC — task-agnostic, self-tuning robust trust.
+
+    Why a fixed trust cannot generalise
+    -----------------------------------
+    The optimal way to treat *confidence* flips between task families:
+      • peaked / expert bases (ARC, MMLU): an honest agent that is RIGHT is the
+        single most confident member of the committee (H≈0), so a confident-
+        correct honest agent should be REWARDED — entropy-trust 1/(H+ε) wins,
+        and it survives even a 3/5 coordinated overconfident_extreme attack.
+      • flat bases (GSM8K, HellaSwag): honest agents are diffuse, so the most
+        confident member is the OVERCONFIDENT ATTACKER — rewarding confidence is
+        fatal; confidence must instead be treated as SUSPICIOUS.
+    These are opposite, so no fixed function of confidence works everywhere
+    (empirically: entropy-trust wins ARC-k3 but →0 on free-form; the symmetric
+    anomaly trust wins free-form but →0 on ARC-extreme-k3).
+
+    Two complementary, scale-free signals
+    --------------------------------------
+    Each agent is profiled on its OWN clean calibration set by the per-question
+    distribution of (H = entropy, q = 1-max(π)) → (μ_H, σ_H, μ_q, σ_q).
+
+      (1) Anomaly suppression — ALWAYS safe.  Penalise deviation from the
+          agent's own clean profile (a corrupt agent's outputs are atypical):
+              anomaly_i = max(|z_H|, |z_q|),  z· = (·_test − μ·)/(σ· + ε)
+              T_anom_i  = exp(−anomaly_i)
+      (2) Confidence reward — only when confidence is INFORMATIVE.  Reward low
+          entropy, but raised to an adaptive exponent β that the committee reads
+          off its OWN calibration: peaked base ⇒ β→1 (trust confidence), flat
+          base ⇒ β→0 (ignore confidence):
+              β = exp(−μ_H^cal / (tau_frac · log n_choices))
+          where μ_H^cal is the committee-mean calibration entropy.
+
+        T_i      = (1/|C_i|) · T_anom_i · (1/(H_i+ε))^β
+        score(a) = Σ_i π_i(a) · T_i · 1[a ∈ C_i]
+
+    The single rule is fully data-driven: it auto-selects "expert mode" on
+    peaked tasks and "skeptic mode" on flat tasks, with no per-task tuning.
+    `beta` may be passed explicitly; otherwise it is derived from the profile.
+    Falls back to CTC-Global when no profile is available.
+    """
+    n_choices = len(next(iter(agent_probs.values())))
+
+    if per_agent_profile is None:
+        return ctc_answer(agent_probs, q_hat)
+
+    # Adaptive confidence-reward exponent β from the committee's calibration.
+    if beta is None:
+        mu_H_cal = float(np.mean([per_agent_profile[j]["H"][0]
+                                  for j in per_agent_profile]))
+        tau = tau_frac * math.log(max(n_choices, 2))
+        beta = float(np.exp(-mu_H_cal / (tau + 1e-12)))
+
+    conf_sets: Dict[int, List[int]] = {}
+    trust:     Dict[int, float]     = {}
+    for j, p in agent_probs.items():
+        cs           = conformal_set(p, q_hat)
+        conf_sets[j] = cs
+        t_size       = 1.0 / len(cs)
+        H_test       = _entropy_np(p)
+
+        if j in per_agent_profile:
+            muH, sH = per_agent_profile[j]["H"]
+            muq, sq = per_agent_profile[j]["q"]
+            q_test  = 1.0 - float(np.max(p))
+            anomaly = max(abs((H_test - muH) / (sH + 1e-8)),
+                          abs((q_test - muq) / (sq + 1e-8)))
+            t_anom  = float(np.exp(-anomaly))
+        else:
+            t_anom = 1.0
+
+        t_conf   = (1.0 / (H_test + 1e-8)) ** beta if beta > 1e-6 else 1.0
+        trust[j] = t_size * t_anom * t_conf
+
     scores = np.zeros(n_choices, dtype=np.float64)
     for a in range(n_choices):
         for j, p in agent_probs.items():

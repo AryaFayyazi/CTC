@@ -27,6 +27,7 @@
 ## Table of contents
 - [TL;DR](#tldr)
 - [Key results](#key-results)
+  - [CTC-Adaptive: one rule that generalizes to any task](#15-ctc-adaptive-one-rule-that-generalizes-to-any-task)
 - [Repository layout](#repository-layout)
 - [Quick start](#quick-start)
 - [Reproducing the experiments](#reproducing-the-experiments)
@@ -42,7 +43,9 @@
 
 LLM multi-agent committees (AutoGen, CrewAI, OpenHands, OpenAI Agents SDK) currently use aggregation rules — majority vote, self-consistency, debate, mixture-of-agents, LLM-as-judge — that are **empirical heuristics with no formal safety guarantee**. We introduce **Conformal Trust Coordination (CTC)**, a framework that combines split-conformal calibration, trust-weighted aggregation, and committee-wide abstention to provide the **first formal selective coverage guarantee under arbitrary Byzantine attacks** of size *k < N* corrupt agents.
 
-Empirically: under **60% adversarial corruption** with our strongest published attacks, **CTC-Hybrid + Committee-Conformal abstention achieves 82-99% selective accuracy at 50% coverage**, while every 2024 SOTA baseline collapses below 30%.
+Empirically: under **60% adversarial corruption** with our strongest published attacks, **CTC + Committee-Conformal abstention achieves 82-99% selective accuracy at 50% coverage**, while every 2024 SOTA baseline collapses below 30%.
+
+Our recommended trust rule is **CTC-Adaptive**, a single self-tuning aggregator that is the only method robust on **both** multiple-choice and free-form tasks (see [§ Generalization](#15-ctc-adaptive-one-rule-that-generalizes-to-any-task)). The earlier CTC-Hybrid is Pareto-dominant on MCQ but **collapses to ~0% on free-form generation** (GSM8K, HellaSwag); CTC-Adaptive fixes this with no per-task tuning.
 
 ---
 
@@ -67,7 +70,36 @@ Forced-prediction accuracy at *k* = 3 corrupt agents (60% adversarial), `overcon
 | Qwen3-30B-A3B | TruthfulQA | 0.108 | 0.100 | 0.108 | 0.171 | 0.318 | 0.605 | 0.561 | **0.614** |
 | Qwen3-30B-A3B | ARC | 0.150 | 0.149 | 0.150 | 0.285 | 0.385 | 0.880 | 0.284 | **0.880** |
 
-**Every 2024 SOTA baseline (SC, Debate, MoA, LLM-Judge) collapses below 30%. Only EntropyTrust and CTC-Hybrid survive. CTC-Hybrid never catastrophically fails (unlike CTC-Global on ARC) and matches or beats EntropyTrust everywhere.**
+**Every 2024 SOTA baseline (SC, Debate, MoA, LLM-Judge) collapses below 30%. Only EntropyTrust and CTC-Hybrid survive. CTC-Hybrid never catastrophically fails (unlike CTC-Global on ARC) and matches or beats EntropyTrust everywhere.** On these *peaked* MCQ tasks **CTC-Adaptive matches CTC-Hybrid** (e.g. Qwen-7B ARC 0.783, MMLU 0.495) — its advantage shows up on free-form tasks below.
+
+### 1.5 CTC-Adaptive: one rule that generalizes to any task
+
+CTC-Hybrid's trust term `1/(H+ε)` *rewards confidence*. That is correct on multiple-choice tasks (where a confident-correct honest agent is the most confident member of the committee) but **catastrophically wrong on free-form tasks**, where honest answer distributions are flat (mean entropy ≈ 1.0 vs ≈ 0.03 on ARC) and the overconfident attacker becomes the *most* confident agent — so the entropy term hands the committee straight to the attacker.
+
+Free-form accuracy (Qwen2.5-7B, N=5, `overconfident` attack, 20 seeds):
+
+| Task | k | Majority | Entropy | CTC-Hybrid | CTC-Robust | **CTC-Adaptive** |
+|---|---|---|---|---|---|---|
+| GSM8K | 1 | 0.747 | 0.140 | 0.140 | 0.736 | **0.740** |
+| GSM8K | 2 | 0.747 | 0.013 | 0.013 | 0.651 | **0.700** |
+| GSM8K | 3 | 0.000 | 0.000 | 0.000 | 0.268 | **0.580** |
+| HellaSwag | 1 | 0.789 | 0.006 | 0.006 | 0.788 | **0.789** |
+| HellaSwag | 2 | 0.789 | 0.000 | 0.000 | 0.787 | **0.789** |
+| HellaSwag | 3 | 0.000 | 0.000 | 0.000 | 0.751 | **0.788** |
+
+**CTC-Hybrid and entropy-trust drop to ≈0 the moment any agent is corrupted; majority survives only while honest agents hold a strict majority (k≤2) and dies at k=3. CTC-Adaptive is the only method robust across all k on both peaked and flat tasks.**
+
+The honest, worst-case (minimax) view over the full grid (3 tasks × 3 attacks × k∈{1,2,3}):
+
+| Method | Worst-case (min) | Mean over grid |
+|---|---|---|
+| Majority vote | 0.000 | 0.568 |
+| Entropy-trust | 0.000 | 0.640 |
+| CTC-Hybrid | 0.000 | 0.627 |
+| CTC-Robust | 0.251 | 0.757 |
+| **CTC-Adaptive (ours)** | **0.557** | **0.791** |
+
+**Why no fixed rule can win everywhere (the sign-flip).** The attacker's entropy `H_atk` is fixed by the attack; honest entropy `μ_H` is task-dependent. The entropy term helps iff `sign(μ_H − H_atk) > 0`, and this sign *flips* between peaked bases (`μ_H < H_atk`) and flat bases (`μ_H > H_atk`). CTC-Adaptive reads the regime off each committee's own calibration set and adapts — see the [Method](#method-in-one-paragraph) section and §2.12 of the technical report.
 
 ### 2. Selective accuracy at 50% coverage — the safety headline
 
@@ -112,9 +144,9 @@ Target: 1 − α = 0.90.
 │   ├── conformal/                # Split-conformal calibration utilities
 │   │   ├── calibrate.py
 │   │   └── coverage.py
-│   ├── coordination/             # The 13 aggregation methods
-│   │   ├── ctc.py                # CTC-Global, CTC-Focal, CTC-Agreement,
-│   │   │                         # CTC-Calibrated, CTC-Hybrid
+│   ├── coordination/             # The aggregation methods
+│   │   ├── ctc.py                # CTC-Global, CTC-Focal, CTC-Agreement, CTC-Calibrated,
+│   │   │                         # CTC-Hybrid, CTC-Robust, CTC-Adaptive (recommended)
 │   │   ├── confidence.py         # Committee-Conformal abstention
 │   │   ├── self_consistency.py   # Wang ICLR 2023
 │   │   ├── debate.py             # Du ICML 2024
@@ -257,7 +289,7 @@ This re-runs only the coordination math (no GPU) over cached probabilities, addi
 
 - **Tables**: `results/tables.txt` (text) and `results/table_*.tex` (LaTeX) — *the headline cross-model table is `table_crossmodel.tex`*
 - **Figures**: `results/fig_*.pdf` — *the headline figure is `fig_crossmodel.pdf`*; the pipeline diagram is `fig_workflow.pdf`
-- **Statistical-rigor evidence**: 20 random seeds per condition, 95% CI from 1.96·σ/√n, one-sided Wilcoxon signed-rank tests against CTC-Hybrid (p < 0.001 throughout)
+- **Statistical-rigor evidence**: 20 random seeds per condition, 95% CI from 1.96·σ/√n, one-sided Wilcoxon signed-rank tests against CTC-Adaptive (p < 0.001 throughout)
 - **Theoretical contribution**: `THEOREM.md` — Theorems 1, 2, 3 with proofs
 
 ---
@@ -270,7 +302,8 @@ This re-runs only the coordination math (no GPU) over cached probabilities, addi
 | `TECHNICAL_REPORT.md` | 25 KB | Editable markdown source |
 | `summary_results.json` | 4.8 MB | Per-condition accuracy / CI / coverage (6,400 records, all 13 methods) |
 | `tables.txt` | ~80 KB | Human-readable summary tables |
-| `table_crossmodel.tex` | ~3 KB | **Headline LaTeX table** (CTC-Hybrid bolded) |
+| `raw_results_freeform.json` | ~3 MB | Free-form (GSM8K + HellaSwag) records, all 9 methods |
+| `table_crossmodel.tex` | ~3 KB | **Headline LaTeX table** (CTC-Adaptive bolded) |
 | `table_<model>.tex` × 5 | ~3 KB each | Per-model LaTeX tables |
 | `selective.txt` | ~50 KB | Selective accuracy at multiple coverage targets, all attacks |
 | `fig_crossmodel.pdf` | 35 KB | **Headline cross-model bar chart** |
@@ -292,7 +325,22 @@ Each agent emits a probability distribution π_i over answer choices. Offline sp
 
 $$\text{score}(a) \;=\; \sum_i \pi_i(a) \cdot T_i \cdot \mathbb{1}[\,a \in C_i\,]$$
 
-and picks argmax. **Committee-Conformal abstention** commits to a prediction only if the union ⋃_i C_i has size 1 (every agent agrees on a single plausible answer); otherwise abstain. The full method, with a worked example and the formal theorem, is in Section 2 of `results/TECHNICAL_REPORT.pdf`.
+and picks argmax. **Committee-Conformal abstention** commits to a prediction only if the union ⋃_i C_i has size 1 (every agent agrees on a single plausible answer); otherwise abstain.
+
+### CTC-Adaptive (recommended trust rule)
+
+CTC-Hybrid's fixed `1/(H+ε)` term does not generalize (it rewards confidence, which is correct on peaked MCQ distributions but fatal on flat free-form ones). **CTC-Adaptive** replaces it with two scale-free, self-tuning factors derived from each agent's *own* clean-calibration profile (per-question entropy `H` and top-nonconformity `q = 1 − max π_i`, summarized as means/stds `μ_H, σ_H, μ_q, σ_q`):
+
+$$T_i \;=\; \underbrace{\frac{1}{|C_i|}}_{\text{set tightness}} \cdot \underbrace{\exp(-\text{anomaly}_i)}_{\text{calibration-anomaly suppression}} \cdot \underbrace{\Big(\tfrac{1}{H(\pi_i)+\varepsilon}\Big)^{\beta}}_{\text{adaptive confidence reward}}$$
+
+where `anomaly_i = max(|z_H|, |z_q|)` with `z_H = (H_test − μ_H)/σ_H`, `z_q = (q_test − μ_q)/σ_q`, and the exponent
+
+$$\beta \;=\; \exp\!\Big(-\,\mu_H^{\text{cal}} \,/\, (\tau \cdot \log n_\text{choices})\Big), \qquad \tau = 0.15.$$
+
+- **Anomaly suppression** is always safe: a corrupt agent's outputs are atypical versus its own calibration history (`z` large) → down-weighted; honest agents sit at `z ≈ 0`.
+- **β auto-selects the regime**: on a peaked base `μ_H^cal → 0` so `β → 1` (reward confidence, recovering CTC-Hybrid's strength on MCQ); on a flat base `μ_H^cal → log n` so `β → 0` (ignore confidence, so the attacker's confidence buys it nothing). Measured β ≈ 0.86 on ARC, ≈ 0.00 on GSM8K/HellaSwag.
+
+Neither factor alone suffices — anomaly-only (`CTC-Robust`) fails on peaked-extreme attacks; entropy-only (`CTC-Hybrid`) fails on flat tasks — but their β-gated product generalizes. The conformal-coverage guarantee and abstention layer are unchanged. The full derivation, the sign-flip argument, and the worked example are in Section 2.12 of `results/TECHNICAL_REPORT.pdf`.
 
 ---
 

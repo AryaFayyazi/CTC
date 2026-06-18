@@ -39,7 +39,8 @@ from ctc_llm.tasks.mmlu import (
 from ctc_llm.tasks.mmlu import Question
 from ctc_llm.agents.local_llm_agent import LocalLLMAgent
 from ctc_llm.experiments.runner import (
-    build_q_hat, build_per_agent_q_hat, run_questions, METHODS
+    build_q_hat, build_per_agent_q_hat, build_per_agent_profile,
+    run_questions, METHODS
 )
 
 
@@ -266,12 +267,14 @@ def run_all(args) -> None:
                         continue
                     q_hat = build_q_hat(agents, cal_q, alpha=ALPHA_MAIN)
                     per_q_hat = build_per_agent_q_hat(agents, cal_q, alpha=ALPHA_MAIN)
+                    per_prof  = build_per_agent_profile(agents, cal_q)
                     res   = run_questions(
                         agents, test_q, n_corrupt=k,
                         attack_type=ATTACK_MAIN, q_hat=q_hat, seed=seed,
                         model_id=model_id, hf_cache_dir=args.hf_cache_dir,
                         result_cache_dir=args.cache_dir,
                         per_agent_q_hat=per_q_hat,
+                        per_agent_profile=per_prof,
                     )
                     record = _build_record(model_id, task, N_AGENTS_MAIN, k,
                                            ATTACK_MAIN, ALPHA_MAIN, seed,
@@ -319,6 +322,7 @@ def run_all(args) -> None:
                             continue
                         q_hat = build_q_hat(agents, cal_q, alpha=alpha)
                         per_q_hat = build_per_agent_q_hat(agents, cal_q, alpha=alpha)
+                        per_prof  = build_per_agent_profile(agents, cal_q)
                         res   = run_questions(
                             agents, test_q, n_corrupt=k,
                             attack_type=attack, q_hat=q_hat, seed=seed,
@@ -326,6 +330,7 @@ def run_all(args) -> None:
                             hf_cache_dir=args.hf_cache_dir,
                             result_cache_dir=args.cache_dir,
                             per_agent_q_hat=per_q_hat,
+                            per_agent_profile=per_prof,
                         )
                         record = _build_record(primary_model, task,
                                                N_AGENTS_MAIN, k, attack,
@@ -365,6 +370,7 @@ def run_all(args) -> None:
                     continue
                 q_hat = build_q_hat(agents10, cal_q, alpha=ALPHA_MAIN)
                 per_q_hat = build_per_agent_q_hat(agents10, cal_q, alpha=ALPHA_MAIN)
+                per_prof  = build_per_agent_profile(agents10, cal_q)
                 res   = run_questions(
                     agents10, test_q, n_corrupt=k,
                     attack_type=ATTACK_MAIN, q_hat=q_hat, seed=seed,
@@ -372,6 +378,7 @@ def run_all(args) -> None:
                     hf_cache_dir=args.hf_cache_dir,
                     result_cache_dir=args.cache_dir,
                     per_agent_q_hat=per_q_hat,
+                    per_agent_profile=per_prof,
                 )
                 record = _build_record(primary_model, "mmlu", N_AGENTS_BIG, k,
                                        ATTACK_MAIN, ALPHA_MAIN, seed,
@@ -418,6 +425,7 @@ def run_all(args) -> None:
                     continue
                 q_hat = build_q_hat(hetero_agents, cal_q, alpha=ALPHA_MAIN)
                 per_q_hat = build_per_agent_q_hat(hetero_agents, cal_q, alpha=ALPHA_MAIN)
+                per_prof  = build_per_agent_profile(hetero_agents, cal_q)
                 res = run_questions(
                     hetero_agents, test_q, n_corrupt=k,
                     attack_type=ATTACK_MAIN, q_hat=q_hat, seed=seed,
@@ -427,6 +435,7 @@ def run_all(args) -> None:
                     hf_cache_dir=args.hf_cache_dir,
                     result_cache_dir=args.cache_dir,
                     per_agent_q_hat=per_q_hat,
+                    per_agent_profile=per_prof,
                 )
                 record = _build_record(HETERO_ID, task, len(hetero_agents), k,
                                        ATTACK_MAIN, ALPHA_MAIN, seed,
@@ -473,6 +482,7 @@ def run_all(args) -> None:
                     continue
                 q_hat = build_q_hat(domain_agents, cal_q, alpha=ALPHA_MAIN)
                 per_q_hat = build_per_agent_q_hat(domain_agents, cal_q, alpha=ALPHA_MAIN)
+                per_prof  = build_per_agent_profile(domain_agents, cal_q)
                 res = run_questions(
                     domain_agents, test_q, n_corrupt=k,
                     attack_type=ATTACK_MAIN, q_hat=q_hat, seed=seed,
@@ -480,6 +490,7 @@ def run_all(args) -> None:
                     hf_cache_dir=args.hf_cache_dir,
                     result_cache_dir=args.cache_dir,
                     per_agent_q_hat=per_q_hat,
+                    per_agent_profile=per_prof,
                 )
                 record = _build_record(DOMAIN_ID, "mmlu", len(domain_agents), k,
                                        ATTACK_MAIN, ALPHA_MAIN, seed,

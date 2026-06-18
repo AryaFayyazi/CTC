@@ -1,0 +1,80 @@
+Node   : aban
+GPUs   : 0
+CPUs   : 8
+Date   : Wed Jun 17 03:58:20 PM PDT 2026
+
+========================================
+PHASE 1: FETCH LLM RESPONSES
+MCQ cache files found    : 258665
+Free-form cache files    : 0
+========================================
+Loading MMLU (16 subjects)…
+  3630 questions
+Loading TruthfulQA…
+  600 questions
+Loading ARC-Challenge…
+  600 questions
+
+Unique MCQ questions : 4819
+Models               : ['Qwen/Qwen2.5-7B-Instruct', 'mistralai/Mistral-7B-Instruct-v0.3', 'Qwen/Qwen3-30B-A3B-Instruct-2507', 'microsoft/Phi-3.5-mini-instruct', 'allenai/Olmo-3-7B-Instruct']
+Primary (ablations)  : Qwen/Qwen2.5-7B-Instruct
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+MODEL: Qwen/Qwen2.5-7B-Instruct  (PRIMARY)  bs=64
+
+[clean] 10 agents × 4819 questions
+Loading Qwen/Qwen2.5-7B-Instruct …
+  Loaded on cuda:0
+  48190 already cached, 0 to compute
+
+[injection] 2 attacks × 5 agents × 4819 questions
+  [injection] 0 pending pairs across 2 attacks
+
+  Model Qwen/Qwen2.5-7B-Instruct done in 7s
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+MODEL: mistralai/Mistral-7B-Instruct-v0.3  (aux)  bs=64
+
+[clean] 5 agents × 4819 questions
+Loading mistralai/Mistral-7B-Instruct-v0.3 …
+  Loaded on cuda:0
+  24095 already cached, 0 to compute
+
+  Model mistralai/Mistral-7B-Instruct-v0.3 done in 3s
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+MODEL: Qwen/Qwen3-30B-A3B-Instruct-2507  (aux)  bs=4
+
+[clean] 5 agents × 4819 questions
+Loading Qwen/Qwen3-30B-A3B-Instruct-2507 …
+  Loaded on cuda:0
+  24095 already cached, 0 to compute
+
+  Model Qwen/Qwen3-30B-A3B-Instruct-2507 done in 10s
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+MODEL: microsoft/Phi-3.5-mini-instruct  (aux)  bs=64
+
+[clean] 5 agents × 4819 questions
+Loading microsoft/Phi-3.5-mini-instruct …
+  Loaded on cuda:0
+  24095 already cached, 0 to compute
+
+  Model microsoft/Phi-3.5-mini-instruct done in 2s
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+MODEL: allenai/Olmo-3-7B-Instruct  (aux)  bs=64
+
+[clean] 5 agents × 4819 questions
+Loading allenai/Olmo-3-7B-Instruct …
+  Loaded on cuda:0
+  4819 already cached, 19276 to compute
+    8000/19276  (42%)  elapsed 92s  ETA 130s
+    16000/19276  (83%)  elapsed 177s  ETA 36s
+    19276/19276  (100%)  elapsed 214s  ETA 0s
+
+  Model allenai/Olmo-3-7B-Instruct done in 218s
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+FREE-FORM INFERENCE  (primary model: Qwen/Qwen2.5-7B-Instruct)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Loading Qwen/Qwen2.5-7B-Instruct …
+  Loaded on cuda:0
+Loading GSM8K (free-form)…
+  400 questions
+  [gsm8k-sampling] 2000 pending (agent,question) pairs

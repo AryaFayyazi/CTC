@@ -8,6 +8,14 @@ results/raw_results*.bak
 # LLM inference cache (rebuild via run.slurm Phase 1)
 data/cache/
 data/cache/**
+data/cache_freeform/
+data/cache_freeform/**
+
+# Free-form backup + local git artifacts
+results/raw_results_freeform.bak.json
+results/raw_results_freeform.json.tmp
+ctc.bundle
+ctc-local/
 
 # HuggingFace cache (not in repo)
 data/models/

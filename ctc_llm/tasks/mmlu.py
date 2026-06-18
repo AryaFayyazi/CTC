@@ -215,7 +215,7 @@ def load_arc(
     return questions[:max_questions]
 
 
-# ── GPQA (Graduate-level Google-Proof Q&A — 2024+ standard hard benchmark) ───
+# ── Utilities ─────────────────────────────────────────────────────────────────
 
 def load_gpqa(
     max_questions: int = 500,

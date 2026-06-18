@@ -24,7 +24,7 @@ import numpy as np
 
 METHODS = ["vanilla", "average", "majority", "entropy",
            "ctc_focal", "ctc_agreement", "ctc",
-           "ctc_calibrated", "ctc_hybrid"]
+           "ctc_calibrated", "ctc_hybrid", "ctc_robust", "ctc_adaptive"]
 COLORS = {
     "vanilla":        "#999999",
     "average":        "#4477AA",
@@ -35,6 +35,8 @@ COLORS = {
     "ctc":            "#228833",
     "ctc_calibrated": "#999933",
     "ctc_hybrid":     "#CC0066",
+    "ctc_robust":     "#EE9911",
+    "ctc_adaptive":   "#000000",
 }
 LABELS = {
     "vanilla":        "Vanilla",
@@ -45,7 +47,9 @@ LABELS = {
     "ctc_agreement":  "CTC-Agreement",
     "ctc":            "CTC-Global",
     "ctc_calibrated": "CTC-Calibrated",
-    "ctc_hybrid":     "CTC-Hybrid (ours)",
+    "ctc_hybrid":     "CTC-Hybrid",
+    "ctc_robust":     "CTC-Robust",
+    "ctc_adaptive":   "CTC-Adaptive (ours)",
 }
 MARKERS = {
     "vanilla":        "x",
@@ -57,7 +61,12 @@ MARKERS = {
     "ctc":            "o",
     "ctc_calibrated": "+",
     "ctc_hybrid":     "*",
+    "ctc_robust":     "h",
+    "ctc_adaptive":   "*",
 }
+
+# Headline method (bold/highlighted in figures)
+HEADLINE = "ctc_adaptive"
 
 plt.rcParams.update({
     "font.size": 11, "axes.titlesize": 12, "axes.labelsize": 11,
@@ -74,7 +83,7 @@ def _ci95(values):
 # ── Per-(model,task) corruption sweep ────────────────────────────────────────
 
 def plot_corruption_sweep(results, out_dir, model_id, task,
-                          attack="overconfident", alpha=0.10):
+                          attack="overconfident_extreme", alpha=0.10):
     rows = [r for r in results
             if r.get("model_id") == model_id and r["task"] == task and
                r["attack"] == attack and r["n_agents"] == 5 and
@@ -95,7 +104,7 @@ def plot_corruption_sweep(results, out_dir, model_id, task,
                 continue
             means.append(np.mean(accs)); cis.append(_ci95(accs))
         fracs = [k / n_agents for k in ks]
-        is_ctc = (m == "ctc_hybrid")
+        is_ctc = (m == HEADLINE)
         ax.errorbar(fracs, means, yerr=cis, label=LABELS[m],
                     color=COLORS[m], marker=MARKERS[m],
                     linewidth=2.4 if is_ctc else 1.2,
@@ -118,7 +127,7 @@ def plot_corruption_sweep(results, out_dir, model_id, task,
 
 # ── Cross-model headline figure (k=3 bar chart) ──────────────────────────────
 
-def plot_crossmodel(results, out_dir, tasks, attack="overconfident",
+def plot_crossmodel(results, out_dir, tasks, attack="overconfident_extreme",
                     alpha=0.10):
     rows = [r for r in results
             if r["attack"] == attack and r["n_corrupt"] == 3 and
@@ -127,7 +136,7 @@ def plot_crossmodel(results, out_dir, tasks, attack="overconfident",
     if not rows:
         return
     models = sorted(set(r["model_id"] for r in rows))
-    methods_show = ["majority", "entropy", "ctc", "ctc_calibrated", "ctc_hybrid"]
+    methods_show = ["majority", "entropy", "ctc_hybrid", "ctc_robust", "ctc_adaptive"]
 
     fig, axes = plt.subplots(1, len(tasks), figsize=(4.5*len(tasks), 4),
                              sharey=True)

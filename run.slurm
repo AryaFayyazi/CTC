@@ -5,19 +5,25 @@
 # Comprehensive ICLR-grade experiment suite
 # ------------------------------------------
 # Models : Qwen2.5-7B-Instruct, Mistral-7B-Instruct-v0.3, Phi-3.5-mini-instruct
-# Tasks  : MMLU (16 subjects), TruthfulQA, ARC-Challenge
+#          Qwen3-30B-A3B-Instruct-2507, OLMo-3-7B-Instruct
+# Tasks  : MMLU (16 subjects), TruthfulQA, ARC-Challenge  [MCQ]
+#          GSM8K (open-ended math generation)              [Free-form]
+#          HellaSwag (full sequence log-prob scoring)      [Free-form]
 # Attacks: overconfident, random, subtle, inject_sycophant, inject_deceptive
 # Sizes  : N=5 (primary), N=10 (scaling ablation)
 # Alphas : 0.05, 0.10, 0.20
-# Methods: vanilla, average, majority, entropy, CTC-Global, CTC-Focal, CTC-Agreement
+# Methods: vanilla, average, majority, entropy, CTC-Global, CTC-Focal,
+#          CTC-Agreement, CTC-Hybrid (main)
 # Stats  : 20 seeds, 95% CI, Wilcoxon signed-rank tests
 #
 # Workflow
 # --------
-# Phase 1 : batched GPU inference → disk cache  (3 models, ~45 min on H100)
-# Phase 2 : coordination experiments from cache (CPU only, ~4 hours)
-# Phase 3 : LaTeX tables (text + .tex files)
-# Phase 4 : PDF figures (corruption sweeps, cross-model, coverage, scaling)
+# Phase 1   : batched GPU inference → disk cache  (MCQ + free-form, ~2h on H100)
+# Phase 2   : MCQ coordination experiments from cache (CPU only, ~4h)
+# Phase 2b  : Free-form coordination experiments from cache (CPU only, ~1h)
+# Phase 3   : LaTeX tables (text + .tex files)
+# Phase 4   : PDF figures (corruption sweeps, cross-model, coverage, scaling)
+# Phase 5   : Selective prediction analysis
 #
 # Usage:
 #   sbatch run.slurm
@@ -44,7 +50,7 @@ echo "Date   : $(date)"
 echo ""
 
 pip install -q accelerate datasets scipy matplotlib tqdm transformers 2>/dev/null || true
-mkdir -p results data/cache
+mkdir -p results data/cache data/cache_freeform
 
 MODELS=(
     "Qwen/Qwen2.5-7B-Instruct"
@@ -53,18 +59,22 @@ MODELS=(
     "microsoft/Phi-3.5-mini-instruct"
     "allenai/Olmo-3-7B-Instruct"
 )
+PRIMARY_MODEL="Qwen/Qwen2.5-7B-Instruct"
 
-# ── Phase 1: Pre-fetch (batched GPU inference, 3 models) ─────────────────────
-CACHE_SIZE=$(find data/cache -name "*.json" 2>/dev/null | wc -l || echo 0)
+# ── Phase 1: Pre-fetch (MCQ + free-form, GPU) ────────────────────────────────
+CACHE_MCQ=$(find data/cache -name "*.json" 2>/dev/null | wc -l || echo 0)
+CACHE_FF=$(find data/cache_freeform -name "*.json" 2>/dev/null | wc -l || echo 0)
 echo "========================================"
 echo "PHASE 1: FETCH LLM RESPONSES"
-echo "Cache files found: $CACHE_SIZE"
+echo "MCQ cache files found    : $CACHE_MCQ"
+echo "Free-form cache files    : $CACHE_FF"
 echo "========================================"
 python3 -u -m ctc_llm.experiments.fetch_responses \
-    --tasks mmlu truthfulqa arc \
+    --tasks mmlu truthfulqa arc gsm8k hellaswag \
     --models "${MODELS[@]}" \
     --hf-cache-dir /data/models \
     --cache-dir data/cache \
+    --freeform-cache-dir data/cache_freeform \
     --batch-size 64 \
     --device cuda
 
@@ -72,9 +82,9 @@ echo ""
 echo "Phase 1 complete.  Starting Phase 2 (CPU only)…"
 echo ""
 
-# ── Phase 2: Coordination experiments ────────────────────────────────────────
+# ── Phase 2: MCQ coordination experiments ───────────────────────────────────
 echo "========================================"
-echo "PHASE 2: COORDINATION EXPERIMENTS"
+echo "PHASE 2: MCQ COORDINATION EXPERIMENTS"
 echo "========================================"
 python3 -u -m ctc_llm.experiments.run_experiments \
     --tasks mmlu truthfulqa arc \
@@ -83,6 +93,19 @@ python3 -u -m ctc_llm.experiments.run_experiments \
     --hf-cache-dir /data/models \
     --cache-dir data/cache \
     --output results/raw_results.json
+
+# ── Phase 2b: Free-form coordination experiments ─────────────────────────────
+echo ""
+echo "========================================"
+echo "PHASE 2b: FREE-FORM COORDINATION (GSM8K + HellaSwag)"
+echo "========================================"
+python3 -u -m ctc_llm.experiments.run_freeform \
+    --tasks gsm8k hellaswag \
+    --models "$PRIMARY_MODEL" \
+    --hf-cache-dir /data/models \
+    --cache-dir data/cache_freeform \
+    --output results/raw_results_freeform.json \
+    --max-questions 400
 
 # ── Phase 3: Tables (text + LaTeX) ───────────────────────────────────────────
 echo ""
@@ -93,7 +116,7 @@ python3 -u -m ctc_llm.paper.tables \
     --input results/raw_results.json \
     --tasks mmlu truthfulqa arc \
     --models "${MODELS[@]}" \
-    --primary-model "Qwen/Qwen2.5-7B-Instruct" \
+    --primary-model "$PRIMARY_MODEL" \
     | tee results/tables.txt
 
 # Per-model LaTeX tables
@@ -125,7 +148,7 @@ python3 -u -m ctc_llm.paper.plot_results \
     --out-dir results \
     --tasks mmlu truthfulqa arc \
     --models "${MODELS[@]}" \
-    --primary-model "Qwen/Qwen2.5-7B-Instruct"
+    --primary-model "$PRIMARY_MODEL"
 
 # ── Phase 5: Selective Prediction Analysis (headline contribution) ───────────
 echo ""
@@ -149,7 +172,8 @@ echo "========================================"
 echo "ALL DONE: $(date)"
 echo "========================================"
 echo "Artifacts in results/:"
-echo "  raw_results.json            full data (20 seeds × 3 models × 3 tasks)"
+echo "  raw_results.json            MCQ data (20 seeds × 5 models × 3 tasks)"
+echo "  raw_results_freeform.json   Free-form data (GSM8K + HellaSwag)"
 echo "  tables.txt                  human-readable summary tables"
 echo "  table_crossmodel.tex        ICLR headline LaTeX table"
 echo "  table_*.tex                 per-model LaTeX tables"

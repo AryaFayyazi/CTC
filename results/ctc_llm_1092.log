@@ -1,0 +1,40 @@
+Node   : aban
+GPUs   : 0
+CPUs   : 8
+Date   : Wed Jun 17 03:47:50 PM PDT 2026
+
+========================================
+PHASE 1: FETCH LLM RESPONSES
+Cache files found: 239769
+========================================
+Loading MMLU (16 subjects)…
+  3630 questions
+Loading TruthfulQA…
+  600 questions
+Loading ARC-Challenge…
+  600 questions
+Loading GSM8K (MCQ)…
+  500 questions
+Loading HellaSwag…
+  500 questions
+
+Unique questions   : 5819
+Models             : ['Qwen/Qwen2.5-7B-Instruct', 'mistralai/Mistral-7B-Instruct-v0.3', 'Qwen/Qwen3-30B-A3B-Instruct-2507', 'microsoft/Phi-3.5-mini-instruct', 'allenai/Olmo-3-7B-Instruct']
+Primary (ablations): Qwen/Qwen2.5-7B-Instruct
+Clean personas     : 5 per model (+ 5 extra on primary)
+Inject personas    : 5 × 2 (primary only)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+MODEL: Qwen/Qwen2.5-7B-Instruct  (PRIMARY)  bs=64
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[clean] 10 agents × 5819 questions
+Loading Qwen/Qwen2.5-7B-Instruct …
+  Loaded on cuda:0
+  48190 already cached, 10000 to compute
+    8000/10000  (80%)  elapsed 95s  ETA 24s
+    10000/10000  (100%)  elapsed 119s  ETA 0s
+
+[injection] 2 attacks × 5 agents × 5819 questions
+  [injection] 10000 pending pairs across 2 attacks
+    8000/10000  (80%)  elapsed 109s  ETA 27s

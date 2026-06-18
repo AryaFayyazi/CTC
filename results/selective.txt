@@ -158,3 +158,178 @@ Generating risk-coverage plots…
   Saved results/fig_risk_coverage_arc_Qwen2_5_7B_Instruct_k1_subtle.pdf
   Saved results/fig_risk_coverage_arc_Qwen2_5_7B_Instruct_k2_subtle.pdf
   Saved results/fig_risk_coverage_arc_Qwen2_5_7B_Instruct_k3_subtle.pdf
+Loaded 6640 records from results/raw_results.json
+(no data)
+(no data)
+
+Generating risk-coverage plots…
+  Saved results/fig_risk_coverage_mmlu_Qwen2_5_7B_Instruct_k1_overconfident.pdf
+  Saved results/fig_risk_coverage_mmlu_Qwen2_5_7B_Instruct_k2_overconfident.pdf
+  Saved results/fig_risk_coverage_mmlu_Qwen2_5_7B_Instruct_k3_overconfident.pdf
+  Saved results/fig_risk_coverage_truthfulqa_Qwen2_5_7B_Instruct_k1_overconfident.pdf
+  Saved results/fig_risk_coverage_truthfulqa_Qwen2_5_7B_Instruct_k2_overconfident.pdf
+  Saved results/fig_risk_coverage_truthfulqa_Qwen2_5_7B_Instruct_k3_overconfident.pdf
+  Saved results/fig_risk_coverage_arc_Qwen2_5_7B_Instruct_k1_overconfident.pdf
+  Saved results/fig_risk_coverage_arc_Qwen2_5_7B_Instruct_k2_overconfident.pdf
+  Saved results/fig_risk_coverage_arc_Qwen2_5_7B_Instruct_k3_overconfident.pdf
+Loaded 6640 records from results/raw_results.json
+
+============================================================================================================
+SELECTIVE ACCURACY @ 80% COVERAGE  |  k=3 corrupt / 5  |  α=0.1  |  attack=overconfident_extreme
+============================================================================================================
+Model                       Task            majority        entropy         ctc             ctc_hybrid      committee     
+------------------------------------------------------------------------------------------------------------
+Qwen2.5-7B-Instruct         mmlu            0.000          0.548          0.638          0.564          0.564        
+Qwen2.5-7B-Instruct         truthfulqa      0.013          0.613          0.645          0.632          0.632        
+Qwen2.5-7B-Instruct         arc             0.014          0.864          0.000          0.864          0.848        
+Qwen3-30B-A3B-Instruct-2507 mmlu            0.026          0.640          0.000          0.628          0.677        
+Qwen3-30B-A3B-Instruct-2507 truthfulqa      0.038          0.685          0.600          0.702          0.703        
+Qwen3-30B-A3B-Instruct-2507 arc             0.072          0.967          0.127          0.966          0.901        
+Olmo-3-7B-Instruct          mmlu            0.016          0.068          0.000          0.068          0.089        
+Olmo-3-7B-Instruct          truthfulqa      0.030          0.035          0.000          0.035          0.059        
+Olmo-3-7B-Instruct          arc             0.008          0.162          0.000          0.162          0.211        
+Phi-3.5-mini-instruct       mmlu            0.000          0.542          0.584          0.554          0.554        
+Phi-3.5-mini-instruct       truthfulqa      0.000          0.571          0.490          0.579          0.579        
+Phi-3.5-mini-instruct       arc             0.008          0.791          0.000          0.786          0.842        
+Mistral-7B-Instruct-v0.3    mmlu            0.000          0.313          0.409          0.331          0.331        
+Mistral-7B-Instruct-v0.3    truthfulqa      0.000          0.492          0.377          0.503          0.503        
+Mistral-7B-Instruct-v0.3    arc             0.000          0.545          0.595          0.565          0.565        
+============================================================================================================
+
+============================================================================================================
+AURC (Area Under Risk-Coverage)  |  k=3  |  α=0.1  |  attack=overconfident_extreme
+(lower is better — integrates 1 - selective_accuracy over all coverage levels)
+============================================================================================================
+Model                       Task            majority     entropy      ctc          ctc_hybrid   committee  
+------------------------------------------------------------------------------------------------------------
+Qwen2.5-7B-Instruct         mmlu            0.9438      0.2662      0.1757      0.2323      0.2323    
+Qwen2.5-7B-Instruct         truthfulqa      0.9401      0.2407      0.1730      0.2041      0.2041    
+Qwen2.5-7B-Instruct         arc             0.9390      0.0552      0.9327      0.0570      0.0736    
+Qwen3-30B-A3B-Instruct-2507 mmlu            0.9371      0.1796      0.9355      0.1920      0.1565    
+Qwen3-30B-A3B-Instruct-2507 truthfulqa      0.9342      0.1603      0.3287      0.1469      0.1992    
+Qwen3-30B-A3B-Instruct-2507 arc             0.9236      0.0150      0.9023      0.0153      0.0450    
+Olmo-3-7B-Instruct          mmlu            0.9420      0.9249      0.9495      0.9263      0.8133    
+Olmo-3-7B-Instruct          truthfulqa      0.9377      0.9364      0.9495      0.9367      0.8633    
+Olmo-3-7B-Instruct          arc             0.9405      0.8689      0.9485      0.8721      0.7253    
+Phi-3.5-mini-instruct       mmlu            0.9475      0.2693      0.2554      0.2562      0.2562    
+Phi-3.5-mini-instruct       truthfulqa      0.9433      0.2425      0.3125      0.2371      0.2371    
+Phi-3.5-mini-instruct       arc             0.9402      0.0851      0.9331      0.0888      0.0911    
+Mistral-7B-Instruct-v0.3    mmlu            0.9476      0.6238      0.4212      0.5364      0.5364    
+Mistral-7B-Instruct-v0.3    truthfulqa      0.9445      0.4329      0.4386      0.3783      0.3783    
+Mistral-7B-Instruct-v0.3    arc             0.9475      0.4019      0.2602      0.3201      0.3201    
+============================================================================================================
+
+Generating risk-coverage plots…
+  Saved results/fig_risk_coverage_mmlu_Qwen2_5_7B_Instruct_k1_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_mmlu_Qwen2_5_7B_Instruct_k2_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_mmlu_Qwen2_5_7B_Instruct_k3_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_truthfulqa_Qwen2_5_7B_Instruct_k1_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_truthfulqa_Qwen2_5_7B_Instruct_k2_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_truthfulqa_Qwen2_5_7B_Instruct_k3_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_arc_Qwen2_5_7B_Instruct_k1_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_arc_Qwen2_5_7B_Instruct_k2_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_arc_Qwen2_5_7B_Instruct_k3_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_mmlu_Qwen3_30B_A3B_Instruct_2507_k1_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_mmlu_Qwen3_30B_A3B_Instruct_2507_k2_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_mmlu_Qwen3_30B_A3B_Instruct_2507_k3_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_truthfulqa_Qwen3_30B_A3B_Instruct_2507_k1_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_truthfulqa_Qwen3_30B_A3B_Instruct_2507_k2_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_truthfulqa_Qwen3_30B_A3B_Instruct_2507_k3_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_arc_Qwen3_30B_A3B_Instruct_2507_k1_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_arc_Qwen3_30B_A3B_Instruct_2507_k2_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_arc_Qwen3_30B_A3B_Instruct_2507_k3_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_mmlu_Olmo_3_7B_Instruct_k1_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_mmlu_Olmo_3_7B_Instruct_k2_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_mmlu_Olmo_3_7B_Instruct_k3_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_truthfulqa_Olmo_3_7B_Instruct_k1_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_truthfulqa_Olmo_3_7B_Instruct_k2_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_truthfulqa_Olmo_3_7B_Instruct_k3_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_arc_Olmo_3_7B_Instruct_k1_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_arc_Olmo_3_7B_Instruct_k2_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_arc_Olmo_3_7B_Instruct_k3_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_mmlu_domain:Qwen2_5_7B_Instruct_k1_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_mmlu_domain:Qwen2_5_7B_Instruct_k2_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_mmlu_domain:Qwen2_5_7B_Instruct_k3_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_mmlu_hetero_committee:Qwen2_5_7B_Instruct,Mistral_7B_Instruct_v0_3,Phi_3_5_mini_instruct,Qwen3_30B_A3B_Instruct_2507,Olmo_3_7B_Instruct_k1_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_mmlu_hetero_committee:Qwen2_5_7B_Instruct,Mistral_7B_Instruct_v0_3,Phi_3_5_mini_instruct,Qwen3_30B_A3B_Instruct_2507,Olmo_3_7B_Instruct_k2_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_mmlu_hetero_committee:Qwen2_5_7B_Instruct,Mistral_7B_Instruct_v0_3,Phi_3_5_mini_instruct,Qwen3_30B_A3B_Instruct_2507,Olmo_3_7B_Instruct_k3_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_truthfulqa_hetero_committee:Qwen2_5_7B_Instruct,Mistral_7B_Instruct_v0_3,Phi_3_5_mini_instruct,Qwen3_30B_A3B_Instruct_2507,Olmo_3_7B_Instruct_k1_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_truthfulqa_hetero_committee:Qwen2_5_7B_Instruct,Mistral_7B_Instruct_v0_3,Phi_3_5_mini_instruct,Qwen3_30B_A3B_Instruct_2507,Olmo_3_7B_Instruct_k2_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_truthfulqa_hetero_committee:Qwen2_5_7B_Instruct,Mistral_7B_Instruct_v0_3,Phi_3_5_mini_instruct,Qwen3_30B_A3B_Instruct_2507,Olmo_3_7B_Instruct_k3_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_arc_hetero_committee:Qwen2_5_7B_Instruct,Mistral_7B_Instruct_v0_3,Phi_3_5_mini_instruct,Qwen3_30B_A3B_Instruct_2507,Olmo_3_7B_Instruct_k1_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_arc_hetero_committee:Qwen2_5_7B_Instruct,Mistral_7B_Instruct_v0_3,Phi_3_5_mini_instruct,Qwen3_30B_A3B_Instruct_2507,Olmo_3_7B_Instruct_k2_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_arc_hetero_committee:Qwen2_5_7B_Instruct,Mistral_7B_Instruct_v0_3,Phi_3_5_mini_instruct,Qwen3_30B_A3B_Instruct_2507,Olmo_3_7B_Instruct_k3_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_mmlu_Phi_3_5_mini_instruct_k1_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_mmlu_Phi_3_5_mini_instruct_k2_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_mmlu_Phi_3_5_mini_instruct_k3_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_truthfulqa_Phi_3_5_mini_instruct_k1_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_truthfulqa_Phi_3_5_mini_instruct_k2_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_truthfulqa_Phi_3_5_mini_instruct_k3_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_arc_Phi_3_5_mini_instruct_k1_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_arc_Phi_3_5_mini_instruct_k2_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_arc_Phi_3_5_mini_instruct_k3_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_mmlu_Mistral_7B_Instruct_v0_3_k1_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_mmlu_Mistral_7B_Instruct_v0_3_k2_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_mmlu_Mistral_7B_Instruct_v0_3_k3_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_truthfulqa_Mistral_7B_Instruct_v0_3_k1_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_truthfulqa_Mistral_7B_Instruct_v0_3_k2_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_truthfulqa_Mistral_7B_Instruct_v0_3_k3_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_arc_Mistral_7B_Instruct_v0_3_k1_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_arc_Mistral_7B_Instruct_v0_3_k2_overconfident_extreme.pdf
+  Saved results/fig_risk_coverage_arc_Mistral_7B_Instruct_v0_3_k3_overconfident_extreme.pdf
+Loaded 6640 records from results/raw_results.json
+(no data)
+(no data)
+
+Generating risk-coverage plots…
+  Saved results/fig_risk_coverage_mmlu_Qwen2_5_7B_Instruct_k1_coordinated_extreme.pdf
+  Saved results/fig_risk_coverage_mmlu_Qwen2_5_7B_Instruct_k2_coordinated_extreme.pdf
+  Saved results/fig_risk_coverage_mmlu_Qwen2_5_7B_Instruct_k3_coordinated_extreme.pdf
+  Saved results/fig_risk_coverage_truthfulqa_Qwen2_5_7B_Instruct_k1_coordinated_extreme.pdf
+  Saved results/fig_risk_coverage_truthfulqa_Qwen2_5_7B_Instruct_k2_coordinated_extreme.pdf
+  Saved results/fig_risk_coverage_truthfulqa_Qwen2_5_7B_Instruct_k3_coordinated_extreme.pdf
+  Saved results/fig_risk_coverage_arc_Qwen2_5_7B_Instruct_k1_coordinated_extreme.pdf
+  Saved results/fig_risk_coverage_arc_Qwen2_5_7B_Instruct_k2_coordinated_extreme.pdf
+  Saved results/fig_risk_coverage_arc_Qwen2_5_7B_Instruct_k3_coordinated_extreme.pdf
+Loaded 6640 records from results/raw_results.json
+(no data)
+(no data)
+
+Generating risk-coverage plots…
+  Saved results/fig_risk_coverage_mmlu_Qwen2_5_7B_Instruct_k1_inject_sycophant.pdf
+  Saved results/fig_risk_coverage_mmlu_Qwen2_5_7B_Instruct_k2_inject_sycophant.pdf
+  Saved results/fig_risk_coverage_mmlu_Qwen2_5_7B_Instruct_k3_inject_sycophant.pdf
+  Saved results/fig_risk_coverage_truthfulqa_Qwen2_5_7B_Instruct_k1_inject_sycophant.pdf
+  Saved results/fig_risk_coverage_truthfulqa_Qwen2_5_7B_Instruct_k2_inject_sycophant.pdf
+  Saved results/fig_risk_coverage_truthfulqa_Qwen2_5_7B_Instruct_k3_inject_sycophant.pdf
+  Saved results/fig_risk_coverage_arc_Qwen2_5_7B_Instruct_k1_inject_sycophant.pdf
+  Saved results/fig_risk_coverage_arc_Qwen2_5_7B_Instruct_k2_inject_sycophant.pdf
+  Saved results/fig_risk_coverage_arc_Qwen2_5_7B_Instruct_k3_inject_sycophant.pdf
+Loaded 6640 records from results/raw_results.json
+(no data)
+(no data)
+
+Generating risk-coverage plots…
+  Saved results/fig_risk_coverage_mmlu_Qwen2_5_7B_Instruct_k1_inject_deceptive.pdf
+  Saved results/fig_risk_coverage_mmlu_Qwen2_5_7B_Instruct_k2_inject_deceptive.pdf
+  Saved results/fig_risk_coverage_mmlu_Qwen2_5_7B_Instruct_k3_inject_deceptive.pdf
+  Saved results/fig_risk_coverage_truthfulqa_Qwen2_5_7B_Instruct_k1_inject_deceptive.pdf
+  Saved results/fig_risk_coverage_truthfulqa_Qwen2_5_7B_Instruct_k2_inject_deceptive.pdf
+  Saved results/fig_risk_coverage_truthfulqa_Qwen2_5_7B_Instruct_k3_inject_deceptive.pdf
+  Saved results/fig_risk_coverage_arc_Qwen2_5_7B_Instruct_k1_inject_deceptive.pdf
+  Saved results/fig_risk_coverage_arc_Qwen2_5_7B_Instruct_k2_inject_deceptive.pdf
+  Saved results/fig_risk_coverage_arc_Qwen2_5_7B_Instruct_k3_inject_deceptive.pdf
+Loaded 6640 records from results/raw_results.json
+(no data)
+(no data)
+
+Generating risk-coverage plots…
+  Saved results/fig_risk_coverage_mmlu_Qwen2_5_7B_Instruct_k1_subtle.pdf
+  Saved results/fig_risk_coverage_mmlu_Qwen2_5_7B_Instruct_k2_subtle.pdf
+  Saved results/fig_risk_coverage_mmlu_Qwen2_5_7B_Instruct_k3_subtle.pdf
+  Saved results/fig_risk_coverage_truthfulqa_Qwen2_5_7B_Instruct_k1_subtle.pdf
+  Saved results/fig_risk_coverage_truthfulqa_Qwen2_5_7B_Instruct_k2_subtle.pdf
+  Saved results/fig_risk_coverage_truthfulqa_Qwen2_5_7B_Instruct_k3_subtle.pdf
+  Saved results/fig_risk_coverage_arc_Qwen2_5_7B_Instruct_k1_subtle.pdf
+  Saved results/fig_risk_coverage_arc_Qwen2_5_7B_Instruct_k2_subtle.pdf
+  Saved results/fig_risk_coverage_arc_Qwen2_5_7B_Instruct_k3_subtle.pdf

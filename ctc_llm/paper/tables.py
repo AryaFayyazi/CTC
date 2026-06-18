@@ -20,7 +20,8 @@ from scipy.stats import wilcoxon  # type: ignore
 
 METHODS = ["vanilla", "average", "majority", "entropy",
            "ctc", "ctc_focal", "ctc_agreement",
-           "ctc_calibrated", "ctc_hybrid"]
+           "ctc_calibrated", "ctc_hybrid",
+           "ctc_robust", "ctc_adaptive"]
 METHOD_NAMES = {
     "vanilla":        "Vanilla (single)",
     "average":        "Avg-Ensemble",
@@ -30,8 +31,13 @@ METHOD_NAMES = {
     "ctc_focal":      "CTC-Focal",
     "ctc_agreement":  "CTC-Agreement",
     "ctc_calibrated": "CTC-Calibrated",
-    "ctc_hybrid":     "CTC-Hybrid (ours)",
+    "ctc_hybrid":     "CTC-Hybrid",
+    "ctc_robust":     "CTC-Robust",
+    "ctc_adaptive":   "CTC-Adaptive (ours)",
 }
+
+# Headline method used for significance tests and bolding.
+HEADLINE = "ctc_adaptive"
 
 
 def _ci95(values):
@@ -99,7 +105,7 @@ def _text(by_k, cov_by_k, setsize_by_k, ks, task, model_id, alpha, n_agents):
     lines = [title,
              f"{'Method':<28}" + "".join(f"  k={k:<10}" for k in ks),
              "-" * 88]
-    ctc_accs = {k: by_k[k]["ctc_hybrid"] for k in ks}
+    ctc_accs = {k: by_k[k][HEADLINE] for k in ks}
     for m in METHODS:
         row = f"{METHOD_NAMES[m]:<28}"
         for k in ks:
@@ -108,7 +114,7 @@ def _text(by_k, cov_by_k, setsize_by_k, ks, task, model_id, alpha, n_agents):
                 row += "  —          "
                 continue
             mean = np.mean(accs); ci = _ci95(accs); sig = ""
-            if m != "ctc_hybrid" and ctc_accs[k]:
+            if m != HEADLINE and ctc_accs[k]:
                 sig = _sig(_wilcoxon_p(ctc_accs[k], accs))
             row += f"  {mean:.3f}±{ci:.3f}{sig:<3}"
         lines.append(row)
@@ -121,7 +127,7 @@ def _text(by_k, cov_by_k, setsize_by_k, ks, task, model_id, alpha, n_agents):
         set_line += (f"  {np.mean(setsize_by_k[k]):.2f}       "
                      if setsize_by_k[k] else "  —          ")
     lines += [cov_line, set_line, "=" * 88,
-              "* p<0.05  ** p<0.01  *** p<0.001  (Wilcoxon CTC-Hybrid > baseline)"]
+              f"* p<0.05  ** p<0.01  *** p<0.001  (Wilcoxon {METHOD_NAMES[HEADLINE]} > baseline)"]
     return "\n".join(lines)
 
 
@@ -130,13 +136,13 @@ def _latex(by_k, cov_by_k, setsize_by_k, ks, task, model_id, alpha, n_agents):
     col_spec = "l" + "r" * n_cols
     hdr      = " & ".join([f"$k={k}$" for k in ks])
     model_short = model_id.split("/")[-1]
-    ctc_accs = {k: by_k[k]["ctc_hybrid"] for k in ks}
+    ctc_accs = {k: by_k[k][HEADLINE] for k in ks}
     lines = [
         r"\begin{table}[t]", r"\centering", r"\small",
         (rf"\caption{{Coordination accuracy on {task.upper()} with "
          rf"{model_short} under overconfident attack ($\alpha={alpha}$, "
          rf"$N={n_agents}$). Mean $\pm$ 95\% CI over 20 seeds. "
-         r"Significance vs.\ CTC-Global: $^*p<.05$, $^{**}p<.01$, "
+         rf"Significance vs.\ {METHOD_NAMES[HEADLINE]}: $^*p<.05$, $^{{**}}p<.01$, "
          r"$^{***}p<.001$ (Wilcoxon).}}"),
         rf"\label{{tab:{task}_{model_short.lower().replace('-','_').replace('.','_')}}}",
         rf"\begin{{tabular}}{{{col_spec}}}", r"\toprule",
@@ -144,7 +150,7 @@ def _latex(by_k, cov_by_k, setsize_by_k, ks, task, model_id, alpha, n_agents):
     ]
     for m in METHODS:
         name = METHOD_NAMES[m]
-        if m == "ctc_hybrid":
+        if m == HEADLINE:
             name = r"\textbf{" + name + "}"
         parts = [name]
         for k in ks:
@@ -152,13 +158,13 @@ def _latex(by_k, cov_by_k, setsize_by_k, ks, task, model_id, alpha, n_agents):
             if not accs:
                 parts.append("—"); continue
             mean = np.mean(accs); ci = _ci95(accs); sig = ""
-            if m != "ctc_hybrid" and ctc_accs[k]:
+            if m != HEADLINE and ctc_accs[k]:
                 raw = _sig(_wilcoxon_p(ctc_accs[k], accs))
                 if   raw == "***": sig = r"$^{***}$"
                 elif raw == "**":  sig = r"$^{**}$"
                 elif raw == "*":   sig = r"$^{*}$"
             cell = rf"{mean:.3f}{{\small$\pm${ci:.3f}}}{sig}"
-            if m == "ctc_hybrid": cell = r"\textbf{" + cell + "}"
+            if m == HEADLINE: cell = r"\textbf{" + cell + "}"
             parts.append(cell)
         lines.append(" & ".join(parts) + r" \\")
     lines.append(r"\midrule")
@@ -190,15 +196,17 @@ def build_crossmodel_table(results, tasks, attack="overconfident_extreme",
            "=" * 88,
            f"{'Model':<28}{'Task':<14}" +
            "".join(f"  {METHOD_NAMES[m][:18]:<18}"
-                   for m in ["majority","entropy","ctc","ctc_hybrid"]),
+                   for m in ["majority","entropy","ctc_hybrid","ctc_robust","ctc_adaptive"]),
            "-" * 88]
     for model in models:
         for task in tasks:
             sub = [r for r in rows if r["model_id"] == model and r["task"] == task]
             if not sub: continue
             cell = f"{model.split('/')[-1]:<28}{task:<14}"
-            for m in ["majority","entropy","ctc","ctc_hybrid"]:
-                accs = [r[f"{m}_accuracy"] for r in sub]
+            for m in ["majority","entropy","ctc_hybrid","ctc_robust","ctc_adaptive"]:
+                accs = [r[f"{m}_accuracy"] for r in sub if f"{m}_accuracy" in r]
+                if not accs:
+                    cell += "  —                 "; continue
                 cell += f"  {np.mean(accs):.3f}±{_ci95(accs):.3f}    "
             out.append(cell)
     out.append("=" * 88)
@@ -206,15 +214,15 @@ def build_crossmodel_table(results, tasks, attack="overconfident_extreme",
 
 
 def _crossmodel_latex(rows, models, tasks, alpha):
-    methods_show = ["majority", "entropy", "ctc", "ctc_calibrated", "ctc_hybrid"]
+    methods_show = ["majority", "entropy", "ctc_hybrid", "ctc_robust", "ctc_adaptive"]
     col_spec     = "ll" + "r" * len(methods_show)
     lines = [
         r"\begin{table}[t]", r"\centering", r"\small",
         (rf"\caption{{Headline result: accuracy at $k=3$ corrupt agents out "
          rf"of $N=5$ ($\alpha={alpha}$, overconfident attack). Mean $\pm$ "
-         r"95\% CI over 20 seeds. \textbf{CTC-Hybrid (ours)} maintains "
+         r"95\% CI over 20 seeds. \textbf{CTC-Adaptive (ours)} maintains "
          r"accuracy across models and tasks while majority vote collapses. "
-         r"Significance vs.\ CTC-Hybrid: $^*p<.05$, $^{**}p<.01$, $^{***}p<.001$.}}"),
+         r"Significance vs.\ CTC-Adaptive: $^*p<.05$, $^{**}p<.01$, $^{***}p<.001$.}}"),
         r"\label{tab:crossmodel}",
         rf"\begin{{tabular}}{{{col_spec}}}", r"\toprule",
         "Model & Task & " + " & ".join(METHOD_NAMES[m] for m in methods_show) + r" \\",
@@ -225,17 +233,19 @@ def _crossmodel_latex(rows, models, tasks, alpha):
             sub = [r for r in rows if r["model_id"] == model and r["task"] == task]
             if not sub: continue
             parts = [model.split("/")[-1], task.upper()]
-            ctc_accs = [r.get("ctc_hybrid_accuracy", r["ctc_accuracy"]) for r in sub]
+            ctc_accs = [r.get(f"{HEADLINE}_accuracy", r["ctc_accuracy"]) for r in sub]
             for m in methods_show:
-                accs = [r[f"{m}_accuracy"] for r in sub]
+                accs = [r[f"{m}_accuracy"] for r in sub if f"{m}_accuracy" in r]
+                if not accs:
+                    parts.append("—"); continue
                 mean = np.mean(accs); ci = _ci95(accs)
-                sig = "" if m == "ctc_hybrid" else _sig(_wilcoxon_p(ctc_accs, accs))
+                sig = "" if m == HEADLINE else _sig(_wilcoxon_p(ctc_accs, accs))
                 marker = ""
                 if   sig == "***": marker = r"$^{***}$"
                 elif sig == "**":  marker = r"$^{**}$"
                 elif sig == "*":   marker = r"$^{*}$"
                 cell = rf"{mean:.3f}{{\small$\pm${ci:.3f}}}{marker}"
-                if m == "ctc_hybrid": cell = r"\textbf{" + cell + "}"
+                if m == HEADLINE: cell = r"\textbf{" + cell + "}"
                 parts.append(cell)
             lines.append(" & ".join(parts) + r" \\")
         if model != models[-1]:

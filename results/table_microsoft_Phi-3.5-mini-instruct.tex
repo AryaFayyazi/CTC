@@ -1,48 +1,54 @@
 \begin{table}[t]
 \centering
 \small
-\caption{Headline result: accuracy at $k=3$ corrupt agents out of $N=5$ ($\alpha=0.1$, overconfident attack). Mean $\pm$ 95\% CI over 20 seeds. \textbf{CTC-Hybrid (ours)} maintains accuracy across models and tasks while majority vote collapses. Significance vs.\ CTC-Hybrid: $^*p<.05$, $^{**}p<.01$, $^{***}p<.001$.}}
+\caption{Headline result: accuracy at $k=3$ corrupt agents out of $N=5$ ($\alpha=0.1$, overconfident attack). Mean $\pm$ 95\% CI over 20 seeds. \textbf{CTC-Adaptive (ours)} maintains accuracy across models and tasks while majority vote collapses. Significance vs.\ CTC-Adaptive: $^*p<.05$, $^{**}p<.01$, $^{***}p<.001$.}}
 \label{tab:crossmodel}
 \begin{tabular}{llrrrrr}
 \toprule
-Model & Task & Majority Vote & EntropyTrust & CTC-Global & CTC-Calibrated & CTC-Hybrid (ours) \\
+Model & Task & Majority Vote & EntropyTrust & CTC-Hybrid & CTC-Robust & CTC-Adaptive (ours) \\
 \midrule
-Qwen2.5-7B-Instruct & MMLU & 0.065{\small$\pm$0.002}$^{***}$ & 0.482{\small$\pm$0.003}$^{***}$ & 0.562{\small$\pm$0.004} & 0.569{\small$\pm$0.004} & \textbf{0.494{\small$\pm$0.002}} \\
-Qwen2.5-7B-Instruct & TRUTHFULQA & 0.084{\small$\pm$0.005}$^{***}$ & 0.547{\small$\pm$0.007}$^{***}$ & 0.569{\small$\pm$0.011} & 0.578{\small$\pm$0.011} & \textbf{0.555{\small$\pm$0.007}} \\
-Qwen2.5-7B-Instruct & ARC & 0.095{\small$\pm$0.005}$^{***}$ & 0.787{\small$\pm$0.007} & 0.169{\small$\pm$0.005}$^{***}$ & 0.094{\small$\pm$0.005}$^{***}$ & \textbf{0.787{\small$\pm$0.007}} \\
+Qwen2.5-7B-Instruct & MMLU & 0.065{\small$\pm$0.002}$^{***}$ & 0.482{\small$\pm$0.003}$^{***}$ & 0.494{\small$\pm$0.002} & 0.565{\small$\pm$0.003} & \textbf{0.495{\small$\pm$0.002}} \\
+Qwen2.5-7B-Instruct & TRUTHFULQA & 0.084{\small$\pm$0.005}$^{***}$ & 0.547{\small$\pm$0.007}$^{***}$ & 0.555{\small$\pm$0.007} & 0.573{\small$\pm$0.011} & \textbf{0.555{\small$\pm$0.007}} \\
+Qwen2.5-7B-Instruct & ARC & 0.095{\small$\pm$0.005}$^{***}$ & 0.787{\small$\pm$0.007} & 0.787{\small$\pm$0.007} & 0.093{\small$\pm$0.006}$^{***}$ & \textbf{0.783{\small$\pm$0.007}} \\
 \midrule
-Qwen3-30B-A3B-Instruct-2507 & MMLU & 0.098{\small$\pm$0.002}$^{***}$ & 0.563{\small$\pm$0.003} & 0.158{\small$\pm$0.003}$^{***}$ & 0.082{\small$\pm$0.002}$^{***}$ & \textbf{0.560{\small$\pm$0.002}} \\
-Qwen3-30B-A3B-Instruct-2507 & TRUTHFULQA & 0.108{\small$\pm$0.007}$^{***}$ & 0.605{\small$\pm$0.008}$^{***}$ & 0.561{\small$\pm$0.107} & 0.546{\small$\pm$0.122} & \textbf{0.614{\small$\pm$0.009}} \\
-Qwen3-30B-A3B-Instruct-2507 & ARC & 0.150{\small$\pm$0.009}$^{***}$ & 0.880{\small$\pm$0.005} & 0.284{\small$\pm$0.007}$^{***}$ & 0.157{\small$\pm$0.009}$^{***}$ & \textbf{0.880{\small$\pm$0.005}} \\
+Qwen3-30B-A3B-Instruct-2507 & MMLU & 0.098{\small$\pm$0.002}$^{***}$ & 0.563{\small$\pm$0.003} & 0.560{\small$\pm$0.002} & 0.077{\small$\pm$0.004}$^{***}$ & \textbf{0.551{\small$\pm$0.002}} \\
+Qwen3-30B-A3B-Instruct-2507 & TRUTHFULQA & 0.108{\small$\pm$0.007}$^{***}$ & 0.605{\small$\pm$0.008}$^{**}$ & 0.614{\small$\pm$0.009} & 0.540{\small$\pm$0.121} & \textbf{0.613{\small$\pm$0.010}} \\
+Qwen3-30B-A3B-Instruct-2507 & ARC & 0.150{\small$\pm$0.009}$^{***}$ & 0.880{\small$\pm$0.005} & 0.880{\small$\pm$0.005} & 0.146{\small$\pm$0.008}$^{***}$ & \textbf{0.879{\small$\pm$0.005}} \\
 \midrule
-Phi-3.5-mini-instruct & MMLU & 0.042{\small$\pm$0.001}$^{***}$ & 0.489{\small$\pm$0.003}$^{***}$ & 0.506{\small$\pm$0.005} & 0.514{\small$\pm$0.005} & \textbf{0.496{\small$\pm$0.003}} \\
-Phi-3.5-mini-instruct & TRUTHFULQA & 0.071{\small$\pm$0.004}$^{***}$ & 0.501{\small$\pm$0.006}$^{***}$ & 0.453{\small$\pm$0.011}$^{***}$ & 0.457{\small$\pm$0.010}$^{***}$ & \textbf{0.505{\small$\pm$0.006}} \\
-Phi-3.5-mini-instruct & ARC & 0.090{\small$\pm$0.005}$^{***}$ & 0.709{\small$\pm$0.006} & 0.171{\small$\pm$0.005}$^{***}$ & 0.087{\small$\pm$0.005}$^{***}$ & \textbf{0.709{\small$\pm$0.006}} \\
+Olmo-3-7B-Instruct & MMLU & 0.062{\small$\pm$0.002} & 0.072{\small$\pm$0.002} & 0.072{\small$\pm$0.002} & 0.030{\small$\pm$0.001} & \textbf{0.024{\small$\pm$0.001}} \\
+Olmo-3-7B-Instruct & TRUTHFULQA & 0.083{\small$\pm$0.005} & 0.049{\small$\pm$0.003} & 0.049{\small$\pm$0.003} & 0.037{\small$\pm$0.004} & \textbf{0.027{\small$\pm$0.003}} \\
+Olmo-3-7B-Instruct & ARC & 0.085{\small$\pm$0.005}$^{***}$ & 0.173{\small$\pm$0.006} & 0.173{\small$\pm$0.006} & 0.072{\small$\pm$0.007}$^{***}$ & \textbf{0.121{\small$\pm$0.005}} \\
 \midrule
-Mistral-7B-Instruct-v0.3 & MMLU & 0.034{\small$\pm$0.001}$^{***}$ & 0.289{\small$\pm$0.002}$^{***}$ & 0.371{\small$\pm$0.002} & 0.377{\small$\pm$0.002} & \textbf{0.300{\small$\pm$0.003}} \\
-Mistral-7B-Instruct-v0.3 & TRUTHFULQA & 0.059{\small$\pm$0.005}$^{***}$ & 0.436{\small$\pm$0.008}$^{***}$ & 0.361{\small$\pm$0.017}$^{***}$ & 0.371{\small$\pm$0.017}$^{***}$ & \textbf{0.445{\small$\pm$0.008}} \\
-Mistral-7B-Instruct-v0.3 & ARC & 0.038{\small$\pm$0.003}$^{***}$ & 0.485{\small$\pm$0.008}$^{***}$ & 0.534{\small$\pm$0.011} & 0.543{\small$\pm$0.010} & \textbf{0.510{\small$\pm$0.008}} \\
+Phi-3.5-mini-instruct & MMLU & 0.042{\small$\pm$0.001}$^{***}$ & 0.489{\small$\pm$0.003}$^{***}$ & 0.496{\small$\pm$0.003} & 0.512{\small$\pm$0.005} & \textbf{0.494{\small$\pm$0.002}} \\
+Phi-3.5-mini-instruct & TRUTHFULQA & 0.071{\small$\pm$0.004}$^{***}$ & 0.501{\small$\pm$0.006}$^{**}$ & 0.505{\small$\pm$0.006} & 0.453{\small$\pm$0.012}$^{***}$ & \textbf{0.502{\small$\pm$0.006}} \\
+Phi-3.5-mini-instruct & ARC & 0.090{\small$\pm$0.005}$^{***}$ & 0.709{\small$\pm$0.006} & 0.709{\small$\pm$0.006} & 0.088{\small$\pm$0.005}$^{***}$ & \textbf{0.708{\small$\pm$0.006}} \\
+\midrule
+Mistral-7B-Instruct-v0.3 & MMLU & 0.034{\small$\pm$0.001}$^{***}$ & 0.289{\small$\pm$0.002}$^{***}$ & 0.300{\small$\pm$0.003}$^{*}$ & 0.389{\small$\pm$0.003} & \textbf{0.301{\small$\pm$0.002}} \\
+Mistral-7B-Instruct-v0.3 & TRUTHFULQA & 0.059{\small$\pm$0.005}$^{***}$ & 0.436{\small$\pm$0.008} & 0.445{\small$\pm$0.008} & 0.375{\small$\pm$0.018}$^{***}$ & \textbf{0.437{\small$\pm$0.008}} \\
+Mistral-7B-Instruct-v0.3 & ARC & 0.038{\small$\pm$0.003}$^{***}$ & 0.485{\small$\pm$0.008}$^{***}$ & 0.510{\small$\pm$0.008} & 0.535{\small$\pm$0.010} & \textbf{0.510{\small$\pm$0.008}} \\
 \bottomrule
 \end{tabular}
 \end{table}
 \begin{table}[t]
 \centering
 \small
-\caption{Coordination accuracy on MMLU with Phi-3.5-mini-instruct under overconfident attack ($\alpha=0.1$, $N=5$). Mean $\pm$ 95\% CI over 20 seeds. Significance vs.\ CTC-Global: $^*p<.05$, $^{**}p<.01$, $^{***}p<.001$ (Wilcoxon).}}
+\caption{Coordination accuracy on MMLU with Phi-3.5-mini-instruct under overconfident attack ($\alpha=0.1$, $N=5$). Mean $\pm$ 95\% CI over 20 seeds. Significance vs.\ CTC-Adaptive (ours): $^*p<.05$, $^{**}p<.01$, $^{***}p<.001$ (Wilcoxon).}}
 \label{tab:mmlu_phi_3_5_mini_instruct}
 \begin{tabular}{lrrrr}
 \toprule
 Method & $k=0$ & $k=1$ & $k=2$ & $k=3$ \\
 \midrule
-Vanilla (single) & 0.666{\small$\pm$0.002} & 0.530{\small$\pm$0.004}$^{**}$ & 0.398{\small$\pm$0.004}$^{***}$ & 0.266{\small$\pm$0.004}$^{***}$ \\
+Vanilla (single) & 0.666{\small$\pm$0.002} & 0.530{\small$\pm$0.004}$^{***}$ & 0.398{\small$\pm$0.004}$^{***}$ & 0.266{\small$\pm$0.004}$^{***}$ \\
 Avg-Ensemble & 0.665{\small$\pm$0.002}$^{***}$ & 0.665{\small$\pm$0.002} & 0.648{\small$\pm$0.002} & 0.069{\small$\pm$0.002}$^{***}$ \\
-Majority Vote & 0.666{\small$\pm$0.002} & 0.665{\small$\pm$0.002} & 0.657{\small$\pm$0.002} & 0.042{\small$\pm$0.001}$^{***}$ \\
-EntropyTrust & 0.666{\small$\pm$0.002}$^{**}$ & 0.527{\small$\pm$0.002}$^{***}$ & 0.507{\small$\pm$0.002}$^{***}$ & 0.489{\small$\pm$0.003}$^{***}$ \\
+Majority Vote & 0.666{\small$\pm$0.002}$^{*}$ & 0.665{\small$\pm$0.002} & 0.657{\small$\pm$0.002} & 0.042{\small$\pm$0.001}$^{***}$ \\
+EntropyTrust & 0.666{\small$\pm$0.002}$^{***}$ & 0.527{\small$\pm$0.002}$^{***}$ & 0.507{\small$\pm$0.002}$^{***}$ & 0.489{\small$\pm$0.003}$^{***}$ \\
 CTC-Global & 0.664{\small$\pm$0.002}$^{***}$ & 0.665{\small$\pm$0.002} & 0.656{\small$\pm$0.002} & 0.506{\small$\pm$0.005} \\
 CTC-Focal & 0.666{\small$\pm$0.002} & 0.653{\small$\pm$0.003} & 0.639{\small$\pm$0.002} & 0.622{\small$\pm$0.003} \\
 CTC-Agreement & 0.664{\small$\pm$0.002}$^{***}$ & 0.665{\small$\pm$0.002} & 0.656{\small$\pm$0.002} & 0.477{\small$\pm$0.006}$^{***}$ \\
 CTC-Calibrated & 0.664{\small$\pm$0.002}$^{***}$ & 0.664{\small$\pm$0.002} & 0.664{\small$\pm$0.002} & 0.514{\small$\pm$0.005} \\
-\textbf{CTC-Hybrid (ours)} & \textbf{0.666{\small$\pm$0.002}} & \textbf{0.535{\small$\pm$0.002}} & \textbf{0.513{\small$\pm$0.003}} & \textbf{0.496{\small$\pm$0.003}} \\
+CTC-Hybrid & 0.666{\small$\pm$0.002}$^{***}$ & 0.535{\small$\pm$0.002}$^{***}$ & 0.513{\small$\pm$0.003}$^{***}$ & 0.496{\small$\pm$0.003} \\
+CTC-Robust & 0.666{\small$\pm$0.002}$^{*}$ & 0.647{\small$\pm$0.002} & 0.629{\small$\pm$0.002} & 0.512{\small$\pm$0.005} \\
+\textbf{CTC-Adaptive (ours)} & \textbf{0.666{\small$\pm$0.002}} & \textbf{0.556{\small$\pm$0.003}} & \textbf{0.522{\small$\pm$0.003}} & \textbf{0.494{\small$\pm$0.002}} \\
 \midrule
 CTC Coverage & 0.900 & 0.900 & 0.900 & 0.900 \\
 Mean $|C|$ & 2.16 & 2.16 & 2.16 & 2.16 \\
@@ -53,7 +59,7 @@ Mean $|C|$ & 2.16 & 2.16 & 2.16 & 2.16 \\
 \begin{table}[t]
 \centering
 \small
-\caption{Coordination accuracy on TRUTHFULQA with Phi-3.5-mini-instruct under overconfident attack ($\alpha=0.1$, $N=5$). Mean $\pm$ 95\% CI over 20 seeds. Significance vs.\ CTC-Global: $^*p<.05$, $^{**}p<.01$, $^{***}p<.001$ (Wilcoxon).}}
+\caption{Coordination accuracy on TRUTHFULQA with Phi-3.5-mini-instruct under overconfident attack ($\alpha=0.1$, $N=5$). Mean $\pm$ 95\% CI over 20 seeds. Significance vs.\ CTC-Adaptive (ours): $^*p<.05$, $^{**}p<.01$, $^{***}p<.001$ (Wilcoxon).}}
 \label{tab:truthfulqa_phi_3_5_mini_instruct}
 \begin{tabular}{lrrrr}
 \toprule
@@ -62,12 +68,14 @@ Method & $k=0$ & $k=1$ & $k=2$ & $k=3$ \\
 Vanilla (single) & 0.630{\small$\pm$0.005}$^{***}$ & 0.502{\small$\pm$0.008}$^{***}$ & 0.376{\small$\pm$0.009}$^{***}$ & 0.252{\small$\pm$0.010}$^{***}$ \\
 Avg-Ensemble & 0.634{\small$\pm$0.005}$^{**}$ & 0.638{\small$\pm$0.005} & 0.621{\small$\pm$0.005} & 0.125{\small$\pm$0.006}$^{***}$ \\
 Majority Vote & 0.638{\small$\pm$0.005} & 0.632{\small$\pm$0.005} & 0.623{\small$\pm$0.005} & 0.071{\small$\pm$0.004}$^{***}$ \\
-EntropyTrust & 0.636{\small$\pm$0.005} & 0.555{\small$\pm$0.005}$^{***}$ & 0.529{\small$\pm$0.005}$^{***}$ & 0.501{\small$\pm$0.006}$^{***}$ \\
+EntropyTrust & 0.636{\small$\pm$0.005} & 0.555{\small$\pm$0.005}$^{***}$ & 0.529{\small$\pm$0.005}$^{***}$ & 0.501{\small$\pm$0.006}$^{**}$ \\
 CTC-Global & 0.637{\small$\pm$0.004} & 0.637{\small$\pm$0.005} & 0.627{\small$\pm$0.005} & 0.453{\small$\pm$0.011}$^{***}$ \\
 CTC-Focal & 0.632{\small$\pm$0.005}$^{***}$ & 0.613{\small$\pm$0.005} & 0.593{\small$\pm$0.006} & 0.569{\small$\pm$0.005} \\
 CTC-Agreement & 0.636{\small$\pm$0.005} & 0.637{\small$\pm$0.005} & 0.625{\small$\pm$0.005} & 0.412{\small$\pm$0.011}$^{***}$ \\
 CTC-Calibrated & 0.636{\small$\pm$0.005} & 0.637{\small$\pm$0.005} & 0.633{\small$\pm$0.005} & 0.457{\small$\pm$0.010}$^{***}$ \\
-\textbf{CTC-Hybrid (ours)} & \textbf{0.636{\small$\pm$0.005}} & \textbf{0.559{\small$\pm$0.005}} & \textbf{0.538{\small$\pm$0.005}} & \textbf{0.505{\small$\pm$0.006}} \\
+CTC-Hybrid & 0.636{\small$\pm$0.005} & 0.559{\small$\pm$0.005}$^{***}$ & 0.538{\small$\pm$0.005}$^{**}$ & 0.505{\small$\pm$0.006} \\
+CTC-Robust & 0.633{\small$\pm$0.004}$^{***}$ & 0.630{\small$\pm$0.005} & 0.612{\small$\pm$0.006} & 0.453{\small$\pm$0.012}$^{***}$ \\
+\textbf{CTC-Adaptive (ours)} & \textbf{0.636{\small$\pm$0.005}} & \textbf{0.570{\small$\pm$0.005}} & \textbf{0.540{\small$\pm$0.005}} & \textbf{0.502{\small$\pm$0.006}} \\
 \midrule
 CTC Coverage & 0.899 & 0.899 & 0.900 & 0.900 \\
 Mean $|C|$ & 2.53 & 2.53 & 2.53 & 2.53 \\
@@ -78,7 +86,7 @@ Mean $|C|$ & 2.53 & 2.53 & 2.53 & 2.53 \\
 \begin{table}[t]
 \centering
 \small
-\caption{Coordination accuracy on ARC with Phi-3.5-mini-instruct under overconfident attack ($\alpha=0.1$, $N=5$). Mean $\pm$ 95\% CI over 20 seeds. Significance vs.\ CTC-Global: $^*p<.05$, $^{**}p<.01$, $^{***}p<.001$ (Wilcoxon).}}
+\caption{Coordination accuracy on ARC with Phi-3.5-mini-instruct under overconfident attack ($\alpha=0.1$, $N=5$). Mean $\pm$ 95\% CI over 20 seeds. Significance vs.\ CTC-Adaptive (ours): $^*p<.05$, $^{**}p<.01$, $^{***}p<.001$ (Wilcoxon).}}
 \label{tab:arc_phi_3_5_mini_instruct}
 \begin{tabular}{lrrrr}
 \toprule
@@ -87,12 +95,14 @@ Method & $k=0$ & $k=1$ & $k=2$ & $k=3$ \\
 Vanilla (single) & 0.836{\small$\pm$0.006}$^{***}$ & 0.668{\small$\pm$0.010}$^{***}$ & 0.499{\small$\pm$0.012}$^{***}$ & 0.332{\small$\pm$0.009}$^{***}$ \\
 Avg-Ensemble & 0.841{\small$\pm$0.006} & 0.841{\small$\pm$0.006} & 0.830{\small$\pm$0.005} & 0.173{\small$\pm$0.005}$^{***}$ \\
 Majority Vote & 0.840{\small$\pm$0.006} & 0.839{\small$\pm$0.006} & 0.833{\small$\pm$0.005} & 0.090{\small$\pm$0.005}$^{***}$ \\
-EntropyTrust & 0.840{\small$\pm$0.006} & 0.744{\small$\pm$0.006} & 0.723{\small$\pm$0.006} & 0.709{\small$\pm$0.006} \\
+EntropyTrust & 0.840{\small$\pm$0.006} & 0.744{\small$\pm$0.006}$^{**}$ & 0.723{\small$\pm$0.006}$^{**}$ & 0.709{\small$\pm$0.006} \\
 CTC-Global & 0.841{\small$\pm$0.006} & 0.837{\small$\pm$0.005} & 0.760{\small$\pm$0.009} & 0.171{\small$\pm$0.005}$^{***}$ \\
 CTC-Focal & 0.838{\small$\pm$0.006}$^{***}$ & 0.613{\small$\pm$0.010}$^{***}$ & 0.456{\small$\pm$0.011}$^{***}$ & 0.304{\small$\pm$0.007}$^{***}$ \\
 CTC-Agreement & 0.841{\small$\pm$0.006} & 0.841{\small$\pm$0.006} & 0.813{\small$\pm$0.005} & 0.171{\small$\pm$0.005}$^{***}$ \\
 CTC-Calibrated & 0.841{\small$\pm$0.006} & 0.840{\small$\pm$0.006} & 0.766{\small$\pm$0.010} & 0.087{\small$\pm$0.005}$^{***}$ \\
-\textbf{CTC-Hybrid (ours)} & \textbf{0.840{\small$\pm$0.006}} & \textbf{0.743{\small$\pm$0.006}} & \textbf{0.723{\small$\pm$0.006}} & \textbf{0.709{\small$\pm$0.006}} \\
+CTC-Hybrid & 0.840{\small$\pm$0.006} & 0.743{\small$\pm$0.006}$^{***}$ & 0.723{\small$\pm$0.006}$^{***}$ & 0.709{\small$\pm$0.006} \\
+CTC-Robust & 0.840{\small$\pm$0.006} & 0.804{\small$\pm$0.004} & 0.766{\small$\pm$0.008} & 0.088{\small$\pm$0.005}$^{***}$ \\
+\textbf{CTC-Adaptive (ours)} & \textbf{0.840{\small$\pm$0.006}} & \textbf{0.748{\small$\pm$0.006}} & \textbf{0.726{\small$\pm$0.006}} & \textbf{0.708{\small$\pm$0.006}} \\
 \midrule
 CTC Coverage & 0.900 & 0.900 & 0.900 & 0.900 \\
 Mean $|C|$ & 1.21 & 1.21 & 1.21 & 1.21 \\

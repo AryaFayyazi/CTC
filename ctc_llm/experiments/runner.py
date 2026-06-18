@@ -23,6 +23,7 @@ from ctc_llm.coordination.average       import average_answer
 from ctc_llm.coordination.ctc           import (
     ctc_answer, ctc_focal_answer, ctc_agreement_answer,
     ctc_calibrated_answer, ctc_hybrid_answer,
+    ctc_robust_answer, ctc_adaptive_answer, _entropy_np,
 )
 from ctc_llm.coordination.confidence    import (
     vanilla_confidence, average_confidence, majority_confidence,
@@ -51,6 +52,8 @@ METHODS = [
     # Our family
     "ctc", "ctc_focal", "ctc_agreement",
     "ctc_calibrated", "ctc_hybrid",
+    # Unified / generalizable trust (calibration-anomaly)
+    "ctc_robust", "ctc_adaptive",
 ]
 
 
@@ -93,6 +96,29 @@ def build_per_agent_q_hat(
     return out
 
 
+def build_per_agent_profile(
+    agents: List[Agent],
+    cal_questions: List[Question],
+) -> Dict[int, dict]:
+    """Per-agent clean-calibration feature profile for ctc_robust / ctc_adaptive.
+
+    Returns {agent_id: {"H": (mu, sigma), "q": (mu, sigma)}} where H is the
+    Shannon entropy and q = 1 - max(pi) is the top-answer nonconformity, both
+    summarised over the agent's clean calibration distribution.
+    """
+    out: Dict[int, dict] = {}
+    for i, agent in enumerate(agents):
+        Hs, qs = [], []
+        for q in cal_questions:
+            p = agent.get_probs(q.question, q.choices)
+            Hs.append(_entropy_np(p))
+            qs.append(1.0 - float(np.max(p)))
+        Hs, qs = np.asarray(Hs), np.asarray(qs)
+        out[i] = {"H": (float(Hs.mean()), float(Hs.std())),
+                  "q": (float(qs.mean()), float(qs.std()))}
+    return out
+
+
 # ── Single question ──────────────────────────────────────────────────────────
 
 def run_question(
@@ -106,6 +132,7 @@ def run_question(
     hf_cache_dir: Optional[str]     = None,
     result_cache_dir: Optional[str] = None,
     per_agent_q_hat: Optional[Dict[int, float]] = None,
+    per_agent_profile: Optional[Dict[int, dict]] = None,
 ) -> Dict[str, Any]:
     """Run one question with k agents corrupted (selection seeded by corrupt_seed)."""
     n_agents    = len(clean_agents)
@@ -150,6 +177,13 @@ def run_question(
                                                 per_agent_q_hat=per_agent_q_hat),
         "ctc_hybrid":     ctc_hybrid_answer(agent_probs, q_hat,
                                             per_agent_q_hat=per_agent_q_hat),
+        "ctc_robust":     ctc_robust_answer(
+            agent_probs, q_hat,
+            per_agent_cal_stats={i: per_agent_profile[i]["q"]
+                                 for i in per_agent_profile}
+            if per_agent_profile else None),
+        "ctc_adaptive":   ctc_adaptive_answer(agent_probs, q_hat,
+                                              per_agent_profile=per_agent_profile),
     }
 
     # ── Confidence / abstention signals per method ────────────────────────
@@ -213,6 +247,7 @@ def run_questions(
     hf_cache_dir: Optional[str]     = None,
     result_cache_dir: Optional[str] = None,
     per_agent_q_hat: Optional[Dict[int, float]] = None,
+    per_agent_profile: Optional[Dict[int, dict]] = None,
 ) -> Dict[str, Any]:
     """Run all test questions for a given (n_corrupt, attack) configuration."""
     # Accumulate per-question accuracy and confidence for every method
@@ -239,6 +274,7 @@ def run_questions(
             hf_cache_dir     = hf_cache_dir,
             result_cache_dir = result_cache_dir,
             per_agent_q_hat  = per_agent_q_hat,
+            per_agent_profile = per_agent_profile,
         )
         for k in results:
             if k in r:

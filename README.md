@@ -391,7 +391,7 @@ The detailed plan, expected outcomes, and spotlight-probability calculus are in 
 @misc{ctc-llm-2026,
   title={Conformal Trust Coordination: Adversarially-Robust LLM Committee Aggregation
          with Formal Selective Coverage Guarantees},
-  author={Arya Fayyazi and co-authors},
+  author={Arya Fayyazi, Mehdi Kamal, Massoud Pedram},
   year={2026},
   note={In preparation}
 }
